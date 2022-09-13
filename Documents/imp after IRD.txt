@@ -1,0 +1,52 @@
+Gallery
+Booking 
+Availability
+Mess Info.
+Pass Card
+Login / Register
+Staff
+Activities
+Gym
+Hostel Parking
+Provision
+
+
+
+
+
+Problem Definition
+Project Definition
+identification of functional needs
+Scope
+Hardware / software Characteristics 
+Funtional and non functional  Requirements
+usecases 
+activity diagrams
+model description
+Data Dictionary
+
+
+
+
+//srs
+1. Introduction
+
+(i) Purpose of this document
+(ii) Scope of this document
+(iii) Overview
+2. General description
+3. Functional Requirements
+4. Interface Requirements
+5. Performance Requirements
+6. Design Constraints
+7. Non-Functional Attributes
+8. Preliminary Schedule and Budget
+9. Appendices
+
+
+
+3). Team : 
+1. Reactor
+2. Mess Head
+3. Activity Head
+4. Counselling Head

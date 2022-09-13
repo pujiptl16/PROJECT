@@ -1,0 +1,42 @@
+1.Account Generation
+-> Users shall Generate Account ID First by filling Application form.
+-> The Admin shall be able to manage Staff and students.
+-> The Admin shall be able to modify data.
+
+2.Registration / Login
+-> Users shall be able to login and logout in the system.
+-> The Admin Shall be able to approve Applications.
+
+3.Student Profile
+-> The Staff and Students Shall be able to manage their Profile. 
+-> The Staff shall be able to manage Students
+
+4.Student Requirements
+-> The Students shall be able to specify their requirements and durations of stay of the room.
+
+5.Availability of rooms
+-> The Students Shall be able to know the availability of the rooms.
+-> The Staff can manage the Availability of the rooms.
+
+
+6.Allocating Finalized room
+-> The Admin Shall be able to allocate Finalized rooms.
+-> The Staff shall be able to manage finalized rooms.
+
+7.Features
+-> The Students shall be able to generate requests and Complains.
+-> The Students shall be able to download Receipts PFA.
+-> The Staff shall be able to scan Student Account ID.
+-> The Staff shall be able to generate Semester wise, Department wise, Room wise, complain wise, request wise and due date wise reports.
+
+8.Mess Information
+-> The Staff member as Mess worker shall be able to manage Mess information.
+-> The Staff member as Mess worker shall be able to view total number of Students.
+
+9.Notice/Instructions
+-> The Admin and Staff shall be able to release Notices/Instructions.
+
+10.Priviledges
+-> The Admin shall have full access to the System.
+-> The Staff shall have access to manage Students.
+-> The Students shall have access to limited fields of the System.

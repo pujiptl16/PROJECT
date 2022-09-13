@@ -1,0 +1,26 @@
+user_id	int	7	Primary Key	Unique id of Users
+Club_id	int	6	Null	Unique id of Club
+staff_id	int	7	Foreign Key	Unique id of Staff Members only
+Role_id	int	5	Foreign Key	Unique id of Role Type
+UType_id	int	3	Primary Key	Unique id of Type Users
+Sports_id	int	4	Primary Key	Unique id of Sports
+Hostel_id	int	7	Primary Key	Unique id of Users
+Mess_id	int	3	Not Null	Unique Mess id of Mess
+Club_id	int	7	Primary Key	Unique id of Club
+
+Room_id	           Varchar	5	Primary Key	Unique id of Room
+Room_Type_id	     Varchar	4	Primary Key	Unique id of Room Type
+Room_Facilities_id     Varchar	5	Foreign Key	Unique id of Facilities Provided
+MessMenu_id	           Varchar	5	Foreign Key	Unique id of Mess Menu
+Dish_id	           Varchar	6	Foreign Key Unique id of Dishes
+Cmp_Type_id	           Varchar	5	Primary Key	Unique id of Complain Type
+Package_id	           Varchar	7	Primary Key	Unique id of Packages
+Record_id	           Varchar	10	Primary Key	Unique id of Hostel Record
+Trn_id	           Varchar	12	Primary Key	Unique id of Transaction
+Cmp_id	           Varchar	9	Primary Key	Unique id of Complain
+Req_id	           Varchar	9	Primary Key	Unique id of Request
+Fdb_id	           Varchar	9	Primary Key	Unique id of Feedback
+Event_id	           Varchar	8	Primary Key	Unique id of Events
+Img_id	           Varchar	7	Primary Key	Unique id of Image
+Notice_id	           Varchar	9	Primary Key	Unique id of Notice
+Blog_id	           Varchar 	9	Primary Key	Unique id of Blog
