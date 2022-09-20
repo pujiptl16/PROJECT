@@ -78,7 +78,7 @@ Welcome Slider
  				<i class="tf-ion-play"></i>
  			</a>
  		</div> -->
- 		<h1>Dormzzz...</h1>
+ 		<h1>Aao Kabhi Hostel Pe</h1>
  		<p>Walked in with Heavy Bags,<br>Walked out with Heavy Heart.</p>
  		<a href="#about" class="btn btn-transparent smooth-scroll">Explore Us</a>
  	</div>
@@ -140,7 +140,7 @@ Sticky Navigation
             <a class="nav-link" href="#contact-us">Contact</a>
           </li>
 		  <li class="nav-item">
-		  	<a style="color: antiquewhite;" class="nav-link btn-main" href="login.php" target="_blank">Login</a>
+		  	<a style="color: antiquewhite;" class="nav-link btn-main" href="form/login.php" target="_blank">Login</a>
 		  </li>	
         </ul>
       </div>
