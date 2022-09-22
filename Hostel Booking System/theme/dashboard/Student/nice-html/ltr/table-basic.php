@@ -4,7 +4,7 @@ session_start();
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
 	$_SESSION['username'] = $username;
-	echo "<script>location.href='../../../../login.php'</script>";
+	echo "<script>location.href='../../../../form/login.php'</script>";
 }
 else
 {
