@@ -38,6 +38,35 @@ if (isset($_POST['signup'])) {
 
 							$hash_pass = password_hash($password, PASSWORD_DEFAULT);
 
+							while($row = mysqli_fetch_row($record))
+                          {
+                              if($_POST['emailid'] == $row[Email])
+                              {
+                                  $flag = true;
+                              }
+                          }
+                          
+                          if(!$flag)
+                          {
+                              $otp = rand(100000, 999999);
+                              $_SESSION['otp'] = $otp;
+
+                              $mail = new PHPMailer;
+                              //$mail->SMTPDebug = 4;
+                              $mail->isSMTP();
+                              $mail->SMTPAuth = true;
+                              $mail->Host = 'smtp.gmail.com';
+                              $mail->Port = 587;
+                              $mail->Username = '20bmiit037@gmail.com';
+                              $mail->Password = 'pdiovkjbgtccxhgt';
+                              $mail->SMTPSecure = "tls";
+                              
+                              $mail->From = "20bmiit037@gmail.com";
+                              $mail->FromName = '#Event SYSTEM';
+                              $mail->addAddress($_POST['email']);
+                              $mail->Subject = "Otp for your email verification";
+                              $mail->Body = "Your OTP is : " . $otp;
+						  }
 							if(mysqli_query($db, "INSERT INTO `tblregister`(`EnrollmentNo`, `CourseName`, `DepartmentName`, `Username`, `Password`, `FirstName`, `LastName`, `Email`, `PhoneNo`) VALUES ('$EnNo','$CourseName','$DepartmentName','$Username','$hash_pass','$Fname','$Lname','$Email','$PhonoNo')"))
 							{
 								echo "<script>location.href='login.php'</script>";
