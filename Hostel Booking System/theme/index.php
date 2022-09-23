@@ -470,8 +470,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Faith is the bird that feels the light when the dawn is still dark!</p>
 					</div>
 				</div>
 			</div>
@@ -483,8 +483,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Basketfall is my favourite season,DEFEND AND DOMINATE..!</p>
 					</div>
 				</div>
 			</div>
@@ -496,8 +496,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Sound system</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0"></p>
 					</div>
 				</div>
 			</div>
@@ -509,8 +509,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a>-->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Nature alwayswears the colors of the spirit.</p>
 					</div>
 				</div>
 			</div>
@@ -522,8 +522,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Clock Product</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">In all the things of nature there is something of the MARVELOUS</p>
 					</div>
 				</div>
 			</div>
