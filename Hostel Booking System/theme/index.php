@@ -510,7 +510,7 @@ Start Call To Action
 							<i class="tf-ion-android-search"></i>
 						</a>-->
 						<h4></h4>
-						<p class="mb-0">Nature alwayswears the colors of the spirit.</p>
+						<p class="mb-0">Nature always wears the colors of the spirit.</p>
 					</div>
 				</div>
 			</div>
@@ -535,8 +535,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Bottol Label</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">The bird who dares to fall is the bird who learns to fly</p>
 					</div>
 				</div>
 			</div>
@@ -548,8 +548,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Shopping Bag</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Festivals become a family because you start seeing the same people.</p>
 					</div>
 				</div>
 			</div>
@@ -561,8 +561,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">What a great day that was. No Television, no Netflix, nothing much extra. Still, life is full of best times, just because of the stupidest roommates.</p>
 					</div>
 				</div>
 			</div>
@@ -574,8 +574,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Nature is not a place to visit,it is HOME!!</p>
 					</div>
 				</div>
 			</div>
@@ -587,8 +587,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Business Card</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4><a></a></h4>
+						<p class="mb-0">Unity and simplicity are the two true sources of beauty </p>
 					</div>
 				</div>
 			</div>
@@ -600,8 +600,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Stationary Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Somewhere, something incredible is waiting to be known.</p>
 					</div>
 				</div>
 			</div>
@@ -613,8 +613,8 @@ Start Call To Action
 							data-lightbox="image-1">
 							<i class="tf-ion-android-search"></i>
 						</a> -->
-						<h4><a>Tag Design</a></h4>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam, nemo!</p>
+						<h4></h4>
+						<p class="mb-0">Nothing can dim the light that shines from within..</p>
 					</div>
 				</div>
 			</div>
@@ -852,7 +852,7 @@ Start Our Team
 					<!-- plan name & value -->
 					<div class="price-title">
 						<h3>Priority</h3>
-						<p><strong class="value">₹ 1999</strong>/ semester</p>
+						<p><strong class="value">₹ 19999</strong>/ semester</p>
 					</div>
 					<!-- /plan name & value -->
 
@@ -883,7 +883,7 @@ Start Our Team
 					<!-- plan name & value -->
 					<div class="price-title">
 						<h3>Premier</h3>
-						<p><strong class="value">₹ 2499</strong />/ semester</p>
+						<p><strong class="value">₹ 24999</strong />/ semester</p>
 					</div>
 					<!-- /plan name & value -->
 
@@ -914,7 +914,7 @@ Start Our Team
 					<!-- plan name & value -->
 					<div class="price-title">
 						<h3>Privilege</h3>
-						<p><strong class="value">₹ 3999</strong />/ semester</p>
+						<p><strong class="value">₹ 39999</strong />/ semester</p>
 					</div>
 					<!-- /plan name & value -->
 
@@ -945,7 +945,7 @@ Start Our Team
 					<!-- plan name & value -->
 					<div class="price-title">
 						<h3>Private</h3>
-						<p><strong class="value">₹ 4499</strong />/ semester</p>
+						<p><strong class="value">₹ 44999</strong />/ semester</p>
 					</div>
 					<!-- /plan name & value -->
 
@@ -1043,7 +1043,7 @@ Start Our Team
 						<!-- client info -->
 						<div class="client-info">
 							<div class="client-meta">
-								<h3>Pooja Patel</h3>
+								<h3>Varshal Patel</h3>
 								<span>Dec 26, 2018</span>
 							</div>
 							<div class="client-comment">
