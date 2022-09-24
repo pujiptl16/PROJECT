@@ -73,16 +73,26 @@ else
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                                <!-- Dark Logo icon -->
+                                <!-- Dark Logo icon 
                                 <img src="../../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                                <!-- Light Logo icon -->
-                                <img src="../../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                                Light Logo icon 
+                                <img src="../../../../images/favicon.png" alt="homepage" class="light-logo" /> -->
+                                <svg width="30px" height="30px" viewBox="0 0 45 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Group" transform="translate(2.000000, 2.000000)" stroke="#57CBCC" stroke-width="3">
+                                            <ellipse id="Oval" cx="20.5" cy="20" rx="20.5" ry="20"></ellipse>
+                                            <path d="M6,7 L33.5,34.5" id="Line-2" stroke-linecap="square"></path>
+                                            <path d="M21,20 L34,7" id="Line-3" stroke-linecap="square"></path>
+                                        </g>
+                                    </g>
+                            </svg>
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
                             <span class="logo-text">
-                                <!-- dark Logo text -->
+                                <!-- dark Logo text
                                 <img src="../../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                                 -->
                                 <!-- Light Logo text -->
                                 <img src="../../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                             </span>
@@ -133,7 +143,7 @@ else
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../../assets/images/users/F2.png" alt="user" class="rounded-circle" width="31" height="31">
+                                <img src="<?php echo $_SESSION['ProfilePic']; ?>" alt="user" class="rounded-circle" width="31" height="31">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user me-1 ms-1"></i>

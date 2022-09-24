@@ -1,5 +1,6 @@
 <?php
 session_start();
+$db = mysqli_connect('localhost', 'root', '', 'dormz');
 
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
@@ -146,7 +147,7 @@ else
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../../assets/images/users/F2.png" alt="user" class="rounded-circle" width="31" height="31">
+                                <img src="<?php echo $_SESSION['ProfilePic']; ?>" alt="user" class="rounded-circle" width="31" height="31">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user me-1 ms-1"></i>
@@ -251,7 +252,7 @@ else
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Dashboard</h4>
+                        <h4 class="page-title"><?php echo $_SESSION['FirstName'];?>'s Dashboard</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -281,7 +282,50 @@ else
                             <div class="card-body">
                                 <h4 class="card-title">List of Hostels</h4>
                             </div>
+                            
                             <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Capacity</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Distance</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Book</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $record = mysqli_query($db, "SELECT * FROM `tblhostel`;"); ?>
+                                    <?php    
+                                        $num=1;
+                                        while ($row = mysqli_fetch_array($record)) 
+                                        { 
+                                            $gender = $row['Hostel_Category'];
+                                            if($gender == $_SESSION['gender']){
+                                        ?>
+                                            
+                                            <tr>
+                                            <th scope="row"><?php echo $num; $num=$num+1; ?></th>
+                                                <td><?php echo $row['Hostel_Name']; ?></td>
+                                                <td><?php echo $row['Capacity']; ?></td>
+                                                <td><?php echo $row['Address']; ?></td>
+                                                <td><?php echo $row['Hostel_Distance']; ?></td>
+                                                <td><?php echo $row['Hostel_Type']; ?></td>
+                                                <td><?php if($row['Hostel_Status']=="Available") { ?> <span class="label label-success label-rounded"> <?php echo $row['Hostel_Status']; }
+                                                        elseif($row['Hostel_Status']=="Fast Filling") { ?> <span class="label label-info label-rounded"> <?php echo $row['Hostel_Status']; }
+                                                        elseif($row['Hostel_Status']=="Full") { ?> <span class="label label-danger label-rounded"> <?php echo $row['Hostel_Status']; } ?></td>
+                                                <td><a href="table-basic.php?edit=<?php echo $row['Hostel_id']; ?>" class="label label-primary label-custom">SELECT</a></td>
+                                            </tr>
+                                            <?php } 
+                                        } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
@@ -375,7 +419,7 @@ else
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

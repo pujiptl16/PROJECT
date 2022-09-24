@@ -1,38 +1,117 @@
 <?php
 
 session_start();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
+require('PHPMailer.php');
+require('Exception.php');
+require('SMTP.php');
+
+$user="";
+$pass="";
 
 if(isset($_POST['username']) && isset($_POST['password'])){
 	
-	$username = $_POST['username'];
+	$user = $_POST['username'];
+	$pass = $_POST['password'];
 	$db = mysqli_connect('localhost', 'root', '', 'dormz');
-	$record = mysqli_query($db, "SELECT * FROM tblregister WHERE Username='$username';");
+	$record = mysqli_query($db, "SELECT * FROM tblregister WHERE Username='$user';");
 
 	if ($record->num_rows == 0 ){
 		echo"<script>alert('User Does not Exists. Kingly Register.')</script>";
 	}
 	else{
-		while($row = mysqli_fetch_array($record)) {
-			$user = $_POST['username'];
-			$pass = $_POST['password'];
+		
+		
+			$row = mysqli_fetch_array($record);
+
+			$EnNo = $row['EnrollmentNo'];
 			$username = $row['Username'];
 			$password = $row['Password'];
+			$email = $row['Email'];
 			$hash_pass = password_hash($pass, PASSWORD_DEFAULT);
 			
-		if(password_verify($pass, $password)) 
-		{
-			$_SESSION['username'] = $username;
-			echo "<script>location.href='../dashboard/Student/nice-html/ltr/student_dash_index.php';</script>";
+			if(password_verify($pass, $password)) 
+			{
+				$_SESSION['username'] = $username;
+				$_SESSION['EnNo'] = $row['EnrollmentNo'];
+				$_SESSION['FirstName'] = $row['FirstName'];
+				$_SESSION['LastName'] = $row['LastName'];
+				$_SESSION['Email'] = $email;
+				$_SESSION['Phone'] = $row['PhoneNo'];
+				$_SESSION['userid'] = $row['user_id'];
+				$_SESSION['gender'] = $row['Gender'];
+
+				$record2 = mysqli_query($db, "SELECT * FROM `tblstudent` WHERE user_id=".$_SESSION['userid'].";");
+				$row2 = mysqli_fetch_array($record2);
+
+				$_SESSION['ProfilePic'] = $row2['Profile_img'];
+
+				try {
+
+					if(isset($_POST['SendOTP'])){
+
+						$otp = rand(100000, 999999);
+
+						$mail = new PHPMailer(true);
+
+						$mail->isSMTP();
+						$mail->Host       = 'smtp.gmail.com';
+						$mail->SMTPAuth   = true;
+						$mail->Username   = 'dormzz16@gmail.com';
+						$mail->Password   = 'pzwdkidxefixhquq';
+						$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+						$mail->Port       = 465;
+
+						//Recipients
+						$mail->setFrom('dormzz16@gmail.com', 'Dormzz Login');
+						$mail->addAddress($email);     //Add a recipient
+						
+						$mail->isHTML(true);
+						//$msg=file_get_contents("beefree-wbrjvkqo22s.php");
+
+						$mail->Subject = 'Dormzz : Sign In Verification';
+
+						$mail->Body    = "Your OTP to Login is :".$otp."<br><br>Thank You.<br>Team Dormzz";
+
+						$mail->MsgHTML = ('h');
+
+
+
+						$mail->send();
+
+						$_SESSION['OTP']=$otp;
+					}
+
+					if(isset($_POST['SignIn'])){
+						if($_POST['OTP'] == $_SESSION['OTP']){
+							if(strlen($EnNo)==15)
+								echo "<script>location.href='../dashboard/Student/nice-html/ltr/student_dash_index.php';</script>";
+							elseif(strlen($EnNo)==10)
+								echo "<script>location.href='../dashboard/Admin/nice-html/ltr/student_dash_index.php';</script>";
+							elseif(strlen($EnNo)==8)
+								echo "<script>location.href='../dashboard/Staff/nice-html/ltr/student_dash_index.php';</script>";
+						}
+						else{
+							echo "<script>alert('Verification Failed.')</script>";
+							
+						}
+					}
+				} catch (Exception $e) {
+					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+				}
 		}
 		else
 		{
 			//echo "<script>alert('Invalid Username and Password"."<br>Database : ".$password."<br>Form : ".$hash_pass."')</script>";
 			echo "<script>alert('Invalid Username and Password')</script>";
+			unset($_POST['SendOTP']);
+			unset($_POST['SignIn']);
 			
 		}
 	}
-}
 }
 
 ?>
@@ -46,7 +125,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+	<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.png" />
 	<link rel="stylesheet" href="css/style.css">
 
 	</head>
@@ -64,15 +143,30 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 		      	<!-- <h3 class="mb-4 text-center">Have an account?</h3> -->
 		      	<form action="" method="post" class="signin-form">
 		      		<div class="form-group">
-		      			<input type="text" name="username" class="form-control" placeholder="Username" required>
+		      			<input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo $user ?>" required>
 		      		</div>
 	            	<div class="form-group">
-	              		<input id="password-field" name="password" type="password" class="form-control" placeholder="Password" required>
+	              		<input id="password-field" name="password" type="password" class="form-control" placeholder="Password" value="<?php echo $pass ?>" required>
 	              		<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            	</div>
 					<div class="form-group">
+						<button type="submit" name="SendOTP" class="form-control btn btn-primary submit px-3">Send OTP</button>
+					</div>
+
+					<?php
+						if(isset($_POST['SendOTP'])){
+					?>
+					<div class="form-group">
+		      			<input type="text" name="OTP" class="form-control" placeholder="6 Digit OTP" required>
+		      		</div>
+
+					<div class="form-group">
 						<button type="submit" name="SignIn" class="form-control btn btn-primary submit px-3">Sign In</button>
 					</div>
+
+					<?php
+						}
+					?>
 					<div class="form-group d-md-flex">
 						<div class="w-50">
 							<label class="checkbox-wrap checkbox-primary">Remember Me

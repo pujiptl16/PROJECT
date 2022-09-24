@@ -868,7 +868,7 @@ Start Our Team
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="register.php" target="_blank">Sign up</a>
+					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
 					<!-- /signup button -->
 
 				</div>
@@ -899,7 +899,7 @@ Start Our Team
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="register.php" target="_blank">Sign up</a>
+					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
 					<!-- /signup button -->
 
 				</div>
@@ -930,7 +930,7 @@ Start Our Team
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="register.php" target="_blank">Sign up</a>
+					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
 					<!-- /signup button -->
 
 				</div>
@@ -961,7 +961,7 @@ Start Our Team
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="register.php" target="_blank">Sign up</a>
+					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
 					<!-- /signup button -->
 
 				</div>

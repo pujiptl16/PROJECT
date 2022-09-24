@@ -22,68 +22,46 @@ if (isset($_POST['signup'])) {
 			
 			if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
 				
-				$PhonoNo = $_POST['PhonoNo'];
+				if(isset($_POST['gender']))
+				{
+					$PhonoNo = $_POST['PhonoNo'];
 
-				if (preg_match ("/^[0-9]*$/", $PhonoNo) )
-				{  
-					if(strlen($PhonoNo)==10)  {
-						$password = $_POST['password'];
-						$cpassword = $_POST['cpassword'];
-						
-						if($password==$cpassword){
-							$CourseName = $_POST['CourseName'];
-							$DepartmentName = $_POST['DepartmentName'];
-							$Fname = $_POST['Fname'];
-							$Lname = $_POST['Lname'];
+					if (preg_match ("/^[0-9]*$/", $PhonoNo) )
+					{  
+						if(strlen($PhonoNo)==10)  {
+							$password = $_POST['password'];
+							$cpassword = $_POST['cpassword'];
+							
+							if($password==$cpassword){
+								$CourseName = $_POST['CourseName'];
+								$DepartmentName = $_POST['DepartmentName'];
+								$Fname = $_POST['Fname'];
+								$Lname = $_POST['Lname'];
+								$gender = $_POST['gender'];
 
-							$hash_pass = password_hash($password, PASSWORD_DEFAULT);
+								$hash_pass = password_hash($password, PASSWORD_DEFAULT);
 
-							while($row = mysqli_fetch_row($record))
-                          {
-                              if($_POST['emailid'] == $row[Email])
-                              {
-                                  $flag = true;
-                              }
-                          }
-                          
-                          if(!$flag)
-                          {
-                              $otp = rand(100000, 999999);
-                              $_SESSION['otp'] = $otp;
-
-                              $mail = new PHPMailer;
-                              //$mail->SMTPDebug = 4;
-                              $mail->isSMTP();
-                              $mail->SMTPAuth = true;
-                              $mail->Host = 'smtp.gmail.com';
-                              $mail->Port = 587;
-                              $mail->Username = '20bmiit037@gmail.com';
-                              $mail->Password = 'pdiovkjbgtccxhgt';
-                              $mail->SMTPSecure = "tls";
-                              
-                              $mail->From = "20bmiit037@gmail.com";
-                              $mail->FromName = '#Event SYSTEM';
-                              $mail->addAddress($_POST['email']);
-                              $mail->Subject = "Otp for your email verification";
-                              $mail->Body = "Your OTP is : " . $otp;
-						  }
-							if(mysqli_query($db, "INSERT INTO `tblregister`(`EnrollmentNo`, `CourseName`, `DepartmentName`, `Username`, `Password`, `FirstName`, `LastName`, `Email`, `PhoneNo`) VALUES ('$EnNo','$CourseName','$DepartmentName','$Username','$hash_pass','$Fname','$Lname','$Email','$PhonoNo')"))
-							{
-								echo "<script>location.href='login.php'</script>";
+								if(mysqli_query($db, "INSERT INTO `tblregister`(`EnrollmentNo`, `CourseName`, `DepartmentName`, `Username`, `Password`, `FirstName`, `LastName`, `Gender`, `Email`, `PhoneNo`) VALUES ('$EnNo','$CourseName','$DepartmentName','$Username','$hash_pass','$Fname','$Lname', '$gender', '$Email','$PhonoNo')"))
+								{
+									echo "<script>location.href='login.php'</script>";
+								}
+								else{
+									echo "<script>alert('Unknown Error Occured.')</script>";
+								}
 							}
 							else{
-								echo "<script>alert('Unknown Error Occured.')</script>";
+								echo "<script>alert('Password Doesn't Matched. Please Enter Again.')</script>"; 
 							}
 						}
 						else{
-							echo "<script>alert('Password Doesn't Matched. Please Enter Again.')</script>"; 
-						}
+							echo "<script>alert('Contact Number must be of 10 Digits only.')</script>"; 
+						} 
+					} else {
+						echo "<script>alert('Invalid Contact Number.')</script>";
 					}
-					else{
-						echo "<script>alert('Contact Number must be of 10 Digits only.')</script>"; 
-					} 
-				} else {
-					echo "<script>alert('Invalid Contact Number.')</script>";
+				}else
+				{
+					echo "<script>alert('Gender not selected.')</script>";
 				}
 
 			}
@@ -111,7 +89,7 @@ session_start();
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
+	<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.png" />
 	<link rel="stylesheet" href="css/style.css">
 
 	</head>
@@ -148,6 +126,12 @@ session_start();
 							</div>
 							<div class="form-group">
 								<input type="text" name="Lname" class="form-control" placeholder="Last Name" required>
+							</div>
+							<div class="form-group">
+								<label class="form-control">Gender  :
+								<input type="radio" name="gender" value="Boys" placeholder="Gender">Male
+								<input type="radio" name="gender" value="Girls" placeholder="Gender">Female
+								</label>
 							</div>
 							<div class="form-group">
 								<input type="email" name="Email" class="form-control" placeholder="Email ID" required>
