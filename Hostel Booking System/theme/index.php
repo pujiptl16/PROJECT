@@ -78,7 +78,7 @@ Welcome Slider
  				<i class="tf-ion-play"></i>
  			</a>
  		</div> -->
- 		<h1>Aao Kabhi Hostel Pe</h1>
+ 		<h1>Home is where your smile beings:)</h1>
  		<p>Walked in with Heavy Bags,<br>Walked out with Heavy Heart.</p>
  		<a href="#about" class="btn btn-transparent smooth-scroll">Explore Us</a>
  	</div>
