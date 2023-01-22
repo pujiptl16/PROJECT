@@ -8,7 +8,7 @@ if(session_id()=="" || !isset($_SESSION['username']))
 }
 else
 {
-    echo "<script>starter-kit.php'</script>";
+    echo "<script>feedback.php'</script>";
 }
 
 ?>
@@ -217,7 +217,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="feedback.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-comment-alert-outline"></i>
                                 <span class="hide-menu">Feedback</span>

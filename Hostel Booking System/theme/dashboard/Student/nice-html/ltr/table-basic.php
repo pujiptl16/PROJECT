@@ -1,5 +1,6 @@
 <?php
 session_start();
+$db = mysqli_connect('localhost', 'root', '', 'dormz');
 
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
@@ -8,7 +9,49 @@ if(session_id()=="" || !isset($_SESSION['username']))
 }
 else
 {
-    echo "<script>table-basic.php'</script>";
+    //echo "<script>starter-kit.php'</script>";
+    $fdate="";
+    $tdate="";
+    $reason="";
+    $id="";
+
+    if (isset($_POST['ApplyLeave'])) {
+        $fdate = $_POST['FDate'];
+        $tdate = $_POST['TDate'];
+        $reason = mysqli_real_escape_string($db, $_POST['Reason']);
+        $aid = $_SESSION['userid'];
+        
+        mysqli_query($db, "INSERT INTO `tblleave`(`User_id`, `Leave_Reason`, `Leave_From`, `Leave_To`)
+        VALUES ('$aid','$reason','$fdate','$tdate')");
+        $_SESSION['message'] = "Leave applied Successfully.";
+        header('location: starter-kit.php');
+    }
+
+    if (isset($_GET['edit'])) {
+		$id = $_GET['edit'];
+		$record = mysqli_query($db, "SELECT * FROM tblleave WHERE Leave_id=$id");
+
+		if ($record->num_rows == 1 ) {
+			$n = mysqli_fetch_array($record);
+			$fdate = $n['Leave_From'];
+            $tdate = $n['Leave_To'];
+            $reason = $n['Leave_Reason'];
+		}
+	}
+
+    if (isset($_POST['UpdateLeave'])) {
+        $id = $_POST['id'];
+        $fdate = $_POST['FDate'];
+        $tdate = $_POST['TDate'];
+        $reason = mysqli_real_escape_string($db, $_POST['Reason']);
+        $aid = $_SESSION['userid'];
+        
+        mysqli_query($db, "UPDATE `tblleave` SET `Leave_Reason`='$reason',`Leave_From`='$fdate',`Leave_To`='$tdate' WHERE `Leave_id`='$id';");
+        $_SESSION['message'] = "Leave updated Successfully.";
+        header('location: starter-kit.php');
+    }
+   
+
 }
 
 ?>
@@ -25,7 +68,7 @@ else
     <meta name="description"
         content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Dormzz - Mess Corner</title>
+    <title>Dormzz - Student Mess Panel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <link rel="shortcut icon" type="image/x-icon" href="../../../../images/favicon.png" />
     <!-- Favicon icon 
@@ -169,74 +212,74 @@ else
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="student_dash_index.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-av-timer"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account-network"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="form-basic.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-arrange-bring-forward"></i>
-                                <span class="hide-menu">My Clubs</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-border-none"></i>
-                                <span class="hide-menu">Mess</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="icon-material.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-face"></i>
-                                <span class="hide-menu">Payment</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
-                                <span class="hide-menu">Leave</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
-                                <span class="hide-menu">Complain / Request</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../../../logout.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-alert-outline"></i>
-                                <span class="hide-menu">Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="student_dash_index.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-av-timer"></i>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-account-network"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="form-basic.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-arrange-bring-forward"></i>
+                                    <span class="hide-menu">My Clubs</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-border-none"></i>
+                                    <span class="hide-menu">Mess</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="icon-material.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-face"></i>
+                                    <span class="hide-menu">Payment</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-file"></i>
+                                    <span class="hide-menu">Leave</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="CRC.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-file"></i>
+                                    <span class="hide-menu">Complain / Request</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../../../logout.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-alert-outline"></i>
+                                    <span class="hide-menu">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -249,7 +292,7 @@ else
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Basic Table</h4>
+                        <h4 class="page-title">Mess Panel</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -258,7 +301,7 @@ else
                                     <li class="breadcrumb-item">
                                         <a href="#">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Basic Table</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mess Panel</li>
                                 </ol>
                             </nav>
                         </div>
@@ -279,660 +322,174 @@ else
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Default Table</h4>
-                                <h6 class="card-subtitle">Using the most basic table markup, here’s how
-                                    <code>.table</code>-based tables look in Bootstrap. All table styles are inherited
-                                    in Bootstrap 4, meaning any nested tables will be styled in the same manner as the
-                                    parent.</h6>
-                                <h6 class="card-title mt-5"><i
-                                        class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Table With
-                                    Outside Padding</h6>
+                                <h4 class="card-title">Mess Corner</h4>
+                                <h5 class="card-subtitle">Daily Menu</h5>
+                                <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i>Mess Information</h6>
+
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">Hostel Name</th>
+                                                <th scope="col">Mess Name</th>
+                                                <th scope="col">Mess Chief</th>
+                                                <th scope="col">Mess Hours</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
+                                        <?php 
+                                            $id = $_SESSION['userid'];
+                                            $dish_ids = "";
+                                            $record = mysqli_query($db, "SELECT b.Hostel_Name, b.Mess_id, c.Mess_Name, c.user_id, d.FirstName, d.LastName, e.Dish_id from tblhostel_record a LEFT JOIN tblhostel b ON a.Hostel_id=b.Hostel_id LEFT JOIN tblmess c ON b.Mess_id=c.Mess_id LEFT JOIN tblregister d ON c.user_id=d.user_id LEFT JOIN tblmess_menu e ON c.MessMenu_id=e.MessMenu_id where a.user_id='$id';"); ?>
+                                        <?php    
+                                            if($record->num_rows==0){
+                                                ?>
+                                                <tr>
+                                                    <td colspan=8><center>No Information Found. / Kindly Purchase a Package.</center></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            $num=1;
+                                            while ($row = mysqli_fetch_array($record)) 
+                                            {   $dish_ids = $row['Dish_id'];
+                                                ?>
+                                                <tr>
+                                                    <td scope="row"><?php echo $row['Hostel_Name']; ?></td>
+                                                    <td scope="row"><?php echo $row['Mess_Name']; ?></td>
+                                                    <td scope="row"><?php echo $row['FirstName']." ".$row['LastName']; ?></td>
+                                                    <td scope="row"><?php echo "7:30 AM - 10:00 PM" ?></td>
+                                                </tr>
+                                                <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <h6 class="card-title"><i
-                                        class="me-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Table Without
-                                    Outside Padding</h6>
-                            </div>
+                            <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Today's Menu</h6>
                             <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Table Header</h4>
-                                <h6 class="card-subtitle">Similar to tables, use the modifier classes .thead-light to
-                                    make <code>&lt;thead&gt;</code>s appear light.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Striped rows</h4>
-                                <h6 class="card-subtitle">Use <code>.table-striped</code> to add zebra-striping to any
-                                    table row within the <code>&lt;tbody&gt;</code>.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Boredered Table</h4>
-                                <h6 class="card-subtitle">Add <code>.table-bordered</code> for borders on all sides of
-                                    the table and cells.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Hoverable Rows</h4>
-                                <h6 class="card-subtitle">Add <code>.table-hover</code> to enable a hover state on table
-                                    rows within a <code>&lt;tbody&gt;</code>.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Contextual Table</h4>
-                                <h6 class="card-subtitle">Use contextual classes to color table rows or individual
-                                    cells.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Class</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="table-active">
-                                            <th scope="row">Active</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Default</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr class="table-primary">
-                                            <th scope="row">Primary</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Secondary</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr class="table-success">
-                                            <th scope="row">Success</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Danger</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr class="table-danger">
-                                            <th scope="row">Warning</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Info</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr class="table-info">
-                                            <th scope="row">Light</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Dark</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Table With Caption</h4>
-                                <h6 class="card-subtitle">A <code>&lt;caption&gt;</code> functions like a heading for a
-                                    table. It helps users with screen readers to find a table and understand what it’s
-                                    about and decide if they want to read it.</h6>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <caption>List of users</caption>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Responsive tables</h4>
-                                <h6 class="card-subtitle">Responsive tables allow tables to be scrolled horizontally
-                                    with ease. Make any table responsive across all viewports by wrapping a
-                                    <code>.table</code> with <code>.table-responsive</code>. Or, pick a maximum
-                                    breakpoint with which to have a responsive table up to by using
-                                    <code>.table-responsive{-sm|-md|-lg|-xl}</code>.</h6>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                            <th scope="col">Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                            <td>Cell</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-bordered table-responsive-lg">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Table header</th>
-                                            <th scope="col">Table header</th>
-                                            <th scope="col">Table header</th>
-                                            <th scope="col">Table header</th>
-                                            <th scope="col">Table header</th>
-                                            <th scope="col">Table header</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                            <td>Table cell</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Breakpoint Specific</h4>
-                                <h6 class="card-subtitle">Use <code>.table-responsive{-sm|-md|-lg|-xl}</code> as needed
-                                    to create responsive tables up to a particular breakpoint. From that breakpoint and
-                                    up, the table will behave normally and not scroll horizontally.</h6>
-                                <div class="table-responsive-sm">
+                                <div class="comment-widgets" style="height:350px;">
                                     <table class="table">
                                         <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
+                                            <tr style=" position: -webkit-sticky; position: sticky;top: 0; z-index: 1; background: #fff;">
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Morning</th>
+                                                <th scope="col">Afternoon</th>
+                                                <th scope="col">Evening</th>
+                                                <th scope="col">Night</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
+                                        <?php    
+                                            if($dish_ids==""){
+                                                ?>
+                                                <tr>
+                                                    <td colspan=8><center>Menu is not assigned yet.</center></td>
+                                                </tr>
+                                                <?php
+                                            }else{
+                                                $data = $dish_ids;
+                                                $data = explode(":", $data);
+                                                $out = array();
+                                                $step = 0;
+                                                //print_r($data);
+                                                
+                                                foreach($data as $key1=>$item){
+                                                    foreach(explode(',',$item) as $value1){
+                                                        $out[$key1][$step++] = $value1;
+                                                    }
+                                                }
+
+                                                $lengths = array_map('count', $out);
+                                                $min_m = min($lengths);
+                                                $max_m = max($lengths);
+                                                $num=1;
+                                                $index=0;
+                                                while($num<=$max_m) 
+                                                { 
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $num;?></td>
+                                                        <?php
+                                                            if($num<=$lengths[0]){
+                                                                ?>
+                                                                    <td>
+                                                                        <?php 
+                                                                            $id = $out[0][$index];
+                                                                            $record = mysqli_query($db, "SELECT * FROM `tbldish` WHERE Dish_id='$id';");
+                                                                            $row = mysqli_fetch_assoc($record);
+                                                                            $dish = $row['DishName'];
+                                                                            echo $dish;
+                                                                        ?>
+                                                                    </td>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                    <td></td>
+                                                                <?php
+                                                            }
+                                                            
+                                                            if ($num<=$lengths[1]) {
+                                                                ?>
+                                                                    <td>
+                                                                        <?php 
+                                                                            $id = $out[1][$lengths[0]+$index];
+                                                                            $record = mysqli_query($db, "SELECT * FROM `tbldish` WHERE Dish_id='$id';");
+                                                                            $row = mysqli_fetch_assoc($record);
+                                                                            $dish = $row['DishName'];
+                                                                            echo $dish;
+                                                                        ?>
+                                                                    </td>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                    <td></td>
+                                                                <?php
+                                                            }
+                                                            
+                                                            if ($num<=$lengths[2]) {
+                                                                ?>
+                                                                    <td>
+                                                                        <?php 
+                                                                            $id = $out[2][$lengths[0]+$lengths[1]+$index];
+                                                                            $record = mysqli_query($db, "SELECT * FROM `tbldish` WHERE Dish_id='$id';");
+                                                                            $row = mysqli_fetch_assoc($record);
+                                                                            $dish = $row['DishName'];
+                                                                            echo $dish;
+                                                                        ?>
+                                                                    </td>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                    <td></td>
+                                                                <?php
+                                                            }
+                                                            
+                                                            if ($num<=$lengths[3]) {
+                                                                ?>
+                                                                    <td>
+                                                                        <?php 
+                                                                            $id = $out[3][$lengths[0]+$lengths[1]+$lengths[2]+$index];
+                                                                            $record = mysqli_query($db, "SELECT * FROM `tbldish` WHERE Dish_id='$id';");
+                                                                            $row = mysqli_fetch_assoc($record);
+                                                                            $dish = $row['DishName'];
+                                                                            echo $dish;
+                                                                        ?>
+                                                                    </td>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                    <td></td>
+                                                                <?php
+                                                            }
+                                                        ?>
+                                                    </tr>
+                                                    <?php
+                                                    $num = $num + 1;
+                                                    $index = $index + 1;
+                                                }
+                                            } ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="table-responsive-md">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="table-responsive-lg">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="table-responsive-xl">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                                <th scope="col">Heading</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                                <td>Cell</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -955,8 +512,8 @@ else
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a href="https://www.wrappixel.com">WrapPixel</a>.
+            All Rights Reserved by DORMZZ. Designed and Developed by
+                <a href="http://www.utu.ac.in/bmiit" target="_blank">BMIITIANS</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

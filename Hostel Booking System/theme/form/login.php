@@ -61,7 +61,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 						$mail->Host       = 'smtp.gmail.com';
 						$mail->SMTPAuth   = true;
 						$mail->Username   = 'dormzz16@gmail.com';
-						$mail->Password   = 'pzwdkidxefixhquq';
+						$mail->Password   = 'xbnqfoqjarjqwgud';
 						$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 						$mail->Port       = 465;
 
@@ -91,7 +91,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 								echo "<script>location.href='../dashboard/Student/nice-html/ltr/student_dash_index.php';</script>";
 							elseif(strlen($EnNo)==10)
 								echo "<script>location.href='../dashboard/Admin/nice-html/ltr/student_dash_index.php';</script>";
-							elseif(strlen($EnNo)==8)
+							elseif(strlen($EnNo)==7)
 								echo "<script>location.href='../dashboard/Staff/nice-html/ltr/student_dash_index.php';</script>";
 						}
 						else{
@@ -133,8 +133,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h1 class="heading-section">Login</h1>
+				<div class="col-md-6 text-center mb-3">
+					<h1 class="heading-section" style="text-transform: uppercase; font-weight: bolder;">Login</h1>
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -150,7 +150,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 	              		<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            	</div>
 					<div class="form-group">
-						<button type="submit" name="SendOTP" class="form-control btn btn-primary submit px-3">Send OTP</button>
+						<button type="submit" id="SendOtp" name="SendOTP" class="form-control btn btn-primary submit px-3">Send OTP</button>
 					</div>
 
 					<?php
@@ -161,7 +161,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 		      		</div>
 
 					<div class="form-group">
-						<button type="submit" name="SignIn" class="form-control btn btn-primary submit px-3">Sign In</button>
+						<button type="submit" id="SignIn" name="SignIn" class="form-control btn btn-primary submit px-3">Sign In</button>
 					</div>
 
 					<?php
@@ -182,6 +182,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 	          <p class="w-100 text-center">&mdash; Or Sign Up With &mdash;</p>
 	          <div class="social d-flex text-center">
 	          	<a href="register.php" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Sign Up</a>
+	          	<a href="../index.php" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Home</a>
 	          	<!-- <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a> -->
 	          </div>
 		      </div>
@@ -194,6 +195,11 @@ if(isset($_POST['username']) && isset($_POST['password'])){
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+  <script>
+	$("#SendOtp").on("click", function () {
+    	document.getElementById("SignIn").focus();
+ 	});
+  </script>
 
 	</body>
 </html>

@@ -8,6 +8,9 @@ $EnNo="";
 $email="";
 $department="";
 $phone="";
+$password="";
+$username="";
+$gender="";
 
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
@@ -21,6 +24,7 @@ else
         $id = $_GET['del'];
         $query = "DELETE FROM tblregister WHERE user_id='$id'";
         mysqli_query($db, $query);
+        $_SESSION['message'] = "User Deleted Successfully."; 
         header('location: form-basic.php');
     }
     
@@ -38,9 +42,11 @@ else
             $email = $n['Email'];
             $department = $n['DepartmentName'];
             $phone = $n['PhoneNo'];
+            $username = $n['Username'];
+            $gender = $n['Gender'];
 		}
 	}
-
+    
     if (isset($_POST['StudUpdate'])) {
         $id = $_POST['id'];
         $fname = $_POST['Fname'];
@@ -49,9 +55,34 @@ else
         $email = $_POST['Email'];
         $department = $_POST['Department'];
         $phone = $_POST['Phone'];
+        $username = $_POST['Username'];
+        $password = $_POST['Password'];
+        $gender = $_POST['Gender'];
+        $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+        $record = mysqli_query($db, "SELECT * FROM tblregister WHERE Username='$username';");
+        $row = mysqli_fetch_assoc($record);
+        $did = $id;
+        if($record->num_rows != 0) {
+            $did = $row['user_id'];
+        }
 
-        mysqli_query($db, "UPDATE tblregister SET FirstName='$fname', LastName='$lname', EnrollmentNo='$EnNo', Email='$email', DepartmentName='$department', PhoneNo='$phone' WHERE user_id=$id");
-        header('location: form-basic.php');
+		if($record->num_rows <= 1 && $did == $id)
+		{
+            if (filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                mysqli_query($db, "UPDATE tblregister SET FirstName='$fname', LastName='$lname', Username='$username',`Password`='$hash_pass', EnrollmentNo='$EnNo', Email='$email', DepartmentName='$department', Gender='$gender', PhoneNo='$phone' WHERE user_id=$id");
+                $_SESSION['message'] = "User Updated Successfully.";
+                unset($_GET['StudUpdate']);
+                header('location: form-basic.php');
+            }
+            else{
+				echo"<script>alert('Invalid Email Address.')</script>";
+			}
+        }
+        else
+		{
+			echo"<script>alert('Username is Taken. Please Use different username.')</script>";
+		}
     }
 }
 
@@ -82,6 +113,22 @@ else
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<script>
+        function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                }
+                return true;
+        }
+
+        function checkDelete(){
+                return confirm('Are you sure?');
+        }
+</script>
+
 </head>
 
 <body>
@@ -260,7 +307,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="feedback.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-comment-alert-outline"></i>
                                 <span class="hide-menu">Feedback</span>
@@ -330,27 +377,42 @@ else
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" name="Fname" class="form-control" value="<?php echo $fname; ?>" placeholder="First Name">
+                                    <input type="text" name="Fname" class="form-control" value="<?php echo $fname; ?>" placeholder="First Name" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" name="Lname" class="form-control" value="<?php echo $lname; ?>" placeholder="Last Name">
+                                    <input type="text" name="Lname" class="form-control" value="<?php echo $lname; ?>" placeholder="Last Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Enrollment Number</label>
+                                    <input type="text" name="EnNo" class="form-control" value="<?php echo $EnNo; ?>" placeholder="Enrollment No." required>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" name="EnNo" class="form-control" value="<?php echo $EnNo; ?>" placeholder="Enrollment No.">
+                                    <input type="email" name="Email" id="example-email" value="<?php echo $email; ?>" class="form-control" placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="Email" id="example-email" value="<?php echo $email; ?>" class="form-control" placeholder="Email">
+                                    <label>Username</label>
+                                    <input type="text" name="Username" class="form-control" value="<?php echo $username; ?>" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>   
+                                    <input type="password" name="Password" value="" class="form-control" Placeholder="Password" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Department</label>
-                                    <input type="text" name="Department" class="form-control" value="<?php echo $department; ?>" placeholder="Department">
+                                    <input type="text" name="Department" class="form-control" value="<?php echo $department; ?>" placeholder="Department" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select name="Gender"  class="form-control" required>
+                                        <option value="Boys" <?php if($gender == "Boys") { ?> selected <?php } ?> >Male</option>
+                                        <option value="Girls"  <?php if($gender == "Girls") { ?> selected <?php } ?> >Female</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Phone No.</label>
-                                    <input type="text" name="Phone" class="form-control" value="<?php echo $phone; ?>" placeholder="Phone No.">
+                                    <input type="text" name="Phone" class="form-control" value="<?php echo $phone; ?>" placeholder="Phone No." required>
                                 </div>
                                 <div class="form-group">
                                         <div class="col-sm-12">
@@ -361,9 +423,31 @@ else
 
                             <?php unset($_GET['edit']); } ?>
                             <div class="table-responsive">
+                                <div class="comment-widgets" style="height:650px;">
                                     <table class="table">
+                                    <?php if (isset($_SESSION['message'])): ?>
+                                                
+                                                <tr scope="col" <?php if($_SESSION['message'] == 'User Deleted Successfully.'){ ?> class="table-danger" <?php } else { ?> class="table-success" <?php } ?>>
+                                                    <th colspan='9'>
+                                                            <center>
+                                                            <?php
+                                                                    echo $_SESSION['message'];
+                                                                    
+                                                                    $_SESSION['flag']++;
+
+                                                                    if($_SESSION['flag'] > 1){
+                                                                            unset($_SESSION['message']);
+                                                                            $_SESSION['flag'] = 0;
+                                                                    }
+                                                                          
+                                                            ?>
+                                                            </center>
+                                                    </th>
+                                                </tr>
+                                            
+                                            <?php endif ?>
                                         <thead>
-                                            <tr>
+                                            <tr style=" position: -webkit-sticky; position: sticky;top: 0; z-index: 1; background: #fff;">
                                                 <th scope="col">No.</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Enrollment No.</th>
@@ -389,12 +473,13 @@ else
                                                     <td><?php echo "1"; ?></td>
                                                     <td><?php echo $row['PhoneNo']; ?></td>
                                                     <td><a href="form-basic.php?edit=<?php echo $row['user_id']; ?>">Edit</a></td>
-                                                    <td><a href="form-basic.php?del=<?php echo $row['user_id']; ?>">Delete</a></td>
+                                                    <td><a href="form-basic.php?del=<?php echo $row['user_id']; ?>" onclick="return checkDelete()">Delete</a></td>
                                                 </tr>
                                                 <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
                                 
 
 

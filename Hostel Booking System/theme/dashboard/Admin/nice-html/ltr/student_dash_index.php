@@ -9,7 +9,8 @@ if(session_id()=="" || !isset($_SESSION['username']))
 }
 else
 {
-    echo "<script>student_dash_index.php'</script>";
+    $_SESSION['flag']=0;
+//    echo "<script>student_dash_index.php'</script>";
 }
 
 ?>
@@ -220,7 +221,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="feedback.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-comment-alert-outline"></i>
                                 <span class="hide-menu">Feedback</span>
@@ -274,154 +275,102 @@ else
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
+
             <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
                 <div class="row">
-                    <!-- column -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">User Acitivity</h4>
+                                <div class="sales ct-charts mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Payments</h5>
+                                <h3 class="font-light">₹ 1,18,072.08</h3>
+                                <div class="mt-3 text-center">
+                                    <div id="earnings"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-0">Users</h4>
+                                <h2 class="font-light">15,990 <span class="font-16 text-success font-medium">+9%</span>
+                                </h2>
+                                <div class="mt-4">
+                                    <div class="row text-center">
+                                        <div class="col-6 border-right">
+                                            <h4 class="mb-0">15%</h4>
+                                            <span class="font-14 text-muted">New Users</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <h4 class="mb-0">85%</h4>
+                                            <span class="font-14 text-muted">Old Users</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">List of Hostels</h4>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No.</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Capacity</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Distance</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $record = mysqli_query($db, "SELECT * FROM `tblhostel`;"); ?>
-                                    <?php    
-                                        $num=1;
-                                        while ($row = mysqli_fetch_array($record)) 
-                                        { 
-                                        ?>
-                                            
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
                                             <tr>
-                                            <th scope="row"><?php echo $num; $num=$num+1; ?></th>
-                                                <td><?php echo $row['Hostel_Name']; ?></td>
-                                                <td><?php echo $row['Capacity']; ?></td>
-                                                <td><?php echo $row['Address']; ?></td>
-                                                <td><?php echo $row['Hostel_Distance']; ?></td>
-                                                <td><?php echo $row['Hostel_Type']; ?></td>
-                                                <td><?php if($row['Hostel_Status']=="Available") { ?> <span class="label label-success label-rounded"> <?php echo $row['Hostel_Status']; }
-                                                        elseif($row['Hostel_Status']=="Fast Filling") { ?> <span class="label label-info label-rounded"> <?php echo $row['Hostel_Status']; }
-                                                        elseif($row['Hostel_Status']=="Full") { ?> <span class="label label-danger label-rounded"> <?php echo $row['Hostel_Status']; } ?></td>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Capacity</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Distance</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Status</th>
                                             </tr>
-                                            <?php } 
-                                         ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        <?php $record = mysqli_query($db, "SELECT * FROM `tblhostel`;"); ?>
+                                        <?php    
+                                            $num=1;
+                                            while ($row = mysqli_fetch_array($record)) 
+                                            { 
+                                            ?>
+                                                
+                                                <tr>
+                                                <th scope="row"><?php echo $num; $num=$num+1; ?></th>
+                                                    <td><?php echo $row['Hostel_Name']; ?></td>
+                                                    <td><?php echo $row['Capacity']; ?></td>
+                                                    <td><?php echo $row['Address']; ?></td>
+                                                    <td><?php echo $row['Hostel_Distance']; ?></td>
+                                                    <td><?php echo $row['Hostel_Type']; ?></td>
+                                                    <td><?php if($row['Hostel_Status']=="Available") { ?> <span class="label label-success label-rounded"> <?php echo $row['Hostel_Status']; }
+                                                            elseif($row['Hostel_Status']=="Fast Filling") { ?> <span class="label label-info label-rounded"> <?php echo $row['Hostel_Status']; }
+                                                            elseif($row['Hostel_Status']=="Full") { ?> <span class="label label-danger label-rounded"> <?php echo $row['Hostel_Status']; } ?></td>
+                                                </tr>
+                                                <?php } 
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            
-                            <!-- <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">NAME</th>
-                                            <th class="border-top-0">STATUS</th>
-                                            <th class="border-top-0">DISTANCE</th>
-                                            <th class="border-top-0">TYPE</th>
-                                            <th class="border-top-0">BOOK</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-
-                                            <td class="txt-oflo">PUSHPAM TARSADIA GIRLS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span></td>
-                                            <td class="txt-oflo">150 METERS</td>
-                                            <td><span class="font-medium">IN CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">KABIR BOYS HOSTEL</td>
-                                            <td><span class="label label-danger label-rounded">FULL</span></td>
-                                            <td class="txt-oflo">100 METERS</td>
-                                            <td><span class="font-medium">IN CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">LAXMI WORKING WOMENS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span></td>
-                                            <td class="txt-oflo">1 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">SHAKTI BOYS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span></td>
-                                            <td class="txt-oflo">8 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">BLUE STAR BOYS HOSTEL</td>
-                                            <td><span class="label label-info label-rounded">FAST FILLING</span></td>
-                                            <td class="txt-oflo">11 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">GAYATRI GIRLS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span> </td>
-                                            <td class="txt-oflo">5 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">OBEROI BOYS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span> </td>
-                                            <td class="txt-oflo">11 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">MOHINI GIRLS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span> </td>
-                                            <td class="txt-oflo">1 KM</td>
-                                            <td><span class="font-medium">OUT CAMPUS</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">AATMIYA BOYS HOSTEL</td>
-                                            <td><span class="label label-danger label-rounded">FULL</span> </td>
-                                            <td class="txt-oflo">5 KM</td>
-                                            <td><span class="font-medium">PG</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                        <tr>
-
-                                            <td class="txt-oflo">PUROHIT GIRLS HOSTEL</td>
-                                            <td><span class="label label-success label-rounded">AVAILABLE</span> </td>
-                                            <td class="txt-oflo">8 KM</td>
-                                            <td><span class="font-medium">PG</span></td>
-                                            <td><a href="" class="label label-primary label-custom">SELECT</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> -->
                         </div>
                     </div>
-                </div>
+                </div>               
                 <!-- ============================================================== -->
                 <!-- Recent comment and chats -->
                 <!-- ============================================================== -->
-            </div>
+            
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->

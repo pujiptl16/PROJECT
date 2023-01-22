@@ -217,7 +217,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="feedback.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-comment-alert-outline"></i>
                                 <span class="hide-menu">Feedback</span>
@@ -304,8 +304,8 @@ else
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                             <div class="custom-file">
-                                                <input type="file" name="ProfilePic" class="custom-file-input" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                <input type="file" name="ProfilePic" class="custom-file-input" id="inputGroupFile01" required>
+                                                <!-- <label class="custom-file-label" for="inputGroupFile01">Choose file</label> -->
                                             </div>
                                             </div>
                                         </div>
@@ -320,7 +320,7 @@ else
                                             $type=array('image/jpg', 'image/jpeg', 'image/png');
 
                                             if(in_array($_FILES['ProfilePic']['type'], $type)){
-                                                $file="./Image/".$_SESSION['FirstName']."_".$_SESSION['username'];
+                                                $file="./Image/".$_SESSION['FirstName']."_".$_SESSION['username'].".jpg";
                                                 move_uploaded_file($_FILES['ProfilePic']['tmp_name'], $file);
                                                 $query="UPDATE `tblstudent` SET Profile_img='$file' WHERE user_id=".$_SESSION['userid'].";";
                                                 mysqli_query($db, $query);

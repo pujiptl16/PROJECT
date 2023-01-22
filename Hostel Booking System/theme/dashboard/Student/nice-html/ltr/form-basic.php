@@ -1,5 +1,6 @@
 <?php
 session_start();
+$db = mysqli_connect('localhost', 'root', '', 'dormz');
 
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
@@ -8,7 +9,49 @@ if(session_id()=="" || !isset($_SESSION['username']))
 }
 else
 {
-    echo "<script>form-basic.php'</script>";
+    //echo "<script>starter-kit.php'</script>";
+    $fdate="";
+    $tdate="";
+    $reason="";
+    $id="";
+
+    if (isset($_POST['ApplyLeave'])) {
+        $fdate = $_POST['FDate'];
+        $tdate = $_POST['TDate'];
+        $reason = mysqli_real_escape_string($db, $_POST['Reason']);
+        $aid = $_SESSION['userid'];
+        
+        mysqli_query($db, "INSERT INTO `tblleave`(`User_id`, `Leave_Reason`, `Leave_From`, `Leave_To`)
+        VALUES ('$aid','$reason','$fdate','$tdate')");
+        $_SESSION['message'] = "Leave applied Successfully.";
+        header('location: starter-kit.php');
+    }
+
+    if (isset($_GET['edit'])) {
+		$id = $_GET['edit'];
+		$record = mysqli_query($db, "SELECT * FROM tblleave WHERE Leave_id=$id");
+
+		if ($record->num_rows == 1 ) {
+			$n = mysqli_fetch_array($record);
+			$fdate = $n['Leave_From'];
+            $tdate = $n['Leave_To'];
+            $reason = $n['Leave_Reason'];
+		}
+	}
+
+    if (isset($_POST['UpdateLeave'])) {
+        $id = $_POST['id'];
+        $fdate = $_POST['FDate'];
+        $tdate = $_POST['TDate'];
+        $reason = mysqli_real_escape_string($db, $_POST['Reason']);
+        $aid = $_SESSION['userid'];
+        
+        mysqli_query($db, "UPDATE `tblleave` SET `Leave_Reason`='$reason',`Leave_From`='$fdate',`Leave_To`='$tdate' WHERE `Leave_id`='$id';");
+        $_SESSION['message'] = "Leave updated Successfully.";
+        header('location: starter-kit.php');
+    }
+   
+
 }
 
 ?>
@@ -25,12 +68,13 @@ else
     <meta name="description"
         content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Dormzz - Clubs</title>
+    <title>Dormzz - Payment</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <link rel="shortcut icon" type="image/x-icon" href="../../../../images/favicon.png" />
     <!-- Favicon icon 
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     -->
+    <!-- Custom CSS -->
     <link href="../../dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -168,74 +212,74 @@ else
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="student_dash_index.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-av-timer"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-account-network"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="form-basic.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-arrange-bring-forward"></i>
-                                <span class="hide-menu">My Clubs</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-border-none"></i>
-                                <span class="hide-menu">Mess</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="icon-material.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-face"></i>
-                                <span class="hide-menu">Payment</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
-                                <span class="hide-menu">Leave</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
-                                <span class="hide-menu">Complain / Request</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../../../logout.php"
-                                aria-expanded="false">
-                                <i class="mdi mdi-alert-outline"></i>
-                                <span class="hide-menu">Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="student_dash_index.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-av-timer"></i>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-account-network"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="form-basic.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-arrange-bring-forward"></i>
+                                    <span class="hide-menu">My Clubs</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-border-none"></i>
+                                    <span class="hide-menu">Mess</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="icon-material.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-face"></i>
+                                    <span class="hide-menu">Payment</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-file"></i>
+                                    <span class="hide-menu">Leave</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="CRC.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-file"></i>
+                                    <span class="hide-menu">Complain / Request</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../../../logout.php"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-alert-outline"></i>
+                                    <span class="hide-menu">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
@@ -248,7 +292,7 @@ else
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Basic Table</h4>
+                        <h4 class="page-title">Leave Panel</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -257,7 +301,7 @@ else
                                     <li class="breadcrumb-item">
                                         <a href="#">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Basic Table</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Leave Panel</li>
                                 </ol>
                             </nav>
                         </div>
@@ -276,107 +320,133 @@ else
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-body">
-                            <h4 class="card-title">Default Forms</h4>
-                            <h5 class="card-subtitle"> All bootstrap element classies </h5>
-                            <form class="form-horizontal mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Apply Leave</h4>
+                                <h5 class="card-subtitle"> Manage Leave</h5>
+                                <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i><a href="starter-kit.php?apply">Apply Leave</a></h6>
+                            <?php if (isset($_GET['apply'])) { ?>
+                            
+                            <form action="" method="post" class="form-horizontal mt-4">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-group">
-                                    <label>Default Text <span class="help"> e.g. "George deo"</span></label>
-                                    <input type="text" class="form-control" value="George deo...">
+                                    <label>From Date</label>
+                                    <input type="datetime-local" name="FDate" class="form-control" value="<?php echo $fdate; ?>" placeholder="From Date" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-email">Email <span class="help"> e.g.
-                                            "example@gmail.com"</span></label>
-                                    <input type="email" id="example-email" name="example-email" class="form-control"
-                                        placeholder="Email">
+                                    <label>To Date</label>
+                                    <input type="datetime-local" name="TDate" class="form-control" value="<?php echo $tdate; ?>" placeholder="To Date" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" value="password">
+                                    <label>Reason</label>
+                                    <input type="text" name="Reason" class="form-control" value="<?php echo $reason; ?>" placeholder="Please Specify Reason in Maximum 75 character." required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Placeholder</label>
-                                    <input type="text" class="form-control" placeholder="placeholder">
-                                </div>
-                                <div class="form-group">
-                                    <label>Text area</label>
-                                    <textarea class="form-control" rows="5"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Read only input</label>
-                                    <input class="form-control" type="text" placeholder="Readonly input here…" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <fieldset disabled>
-                                        <label for="disabledTextInput">Disabled input</label>
-                                        <input type="text" id="disabledTextInput" class="form-control"
-                                            placeholder="Disabled input">
-                                    </fieldset>
-                                </div>
-                                <div class="form-group row pt-3">
-                                    <div class="col-sm-4">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                            <label class="form-check-label mb-0" for="customCheck1">Check this custom
-                                                checkbox</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck2">
-                                            <label class="form-check-label mb-0" for="customCheck2">Check this custom
-                                                checkbox</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck3">
-                                            <label class="form-check-label mb-0" for="customCheck3">Check this custom
-                                                checkbox</label>
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="ApplyLeave" class="btn btn-success text-white">Apply</button>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-check">
-                                            <input type="radio" id="customRadio1" name="customRadio"
-                                                class="form-check-input">
-                                            <label class="form-check-label mb-0" for="customRadio1">Toggle this custom
-                                                radio</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="radio" id="customRadio2" name="customRadio"
-                                                class="form-check-input">
-                                            <label class="form-check-label mb-0" for="customRadio2">Toggle this custom
-                                                radio</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Input Select</label>
-                                    <select class="form-select shadow-none col-12" id="inlineFormCustomSelect">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Default file upload</label>
-                                    <input type="file" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Custom File upload</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Helping text</label>
-                                    <input type="text" class="form-control" placeholder="Helping text">
-                                    <span class="help-block"><small>A block of help text that breaks onto a new line and
-                                            may extend beyond one line.</small></span> </div>
                             </form>
+
+                            <?php unset($_GET['apply']); } ?>
+                            <h6 class="card-title mt-5"><i
+                                        class="me-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Applied Leaves</h6>
+                            
+                            <?php if (isset($_GET['edit'])) { ?>
+                            
+                            <form action="" method="post" class="form-horizontal mt-4">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input type="datetime-local" name="FDate" class="form-control" value="<?php echo $fdate; ?>" placeholder="From Date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input type="datetime-local" name="TDate" class="form-control" value="<?php echo $tdate; ?>" placeholder="To Date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Reason</label>
+                                    <input type="text" name="Reason" class="form-control" value="<?php echo $reason; ?>" placeholder="Please Specify Reason in Maximum 75 character." required>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="UpdateLeave" class="btn btn-success text-white">Update</button>
+                                        </div>
+                                    </div>
+                            </form>
+
+                            <?php unset($_GET['edit']); } ?>
+
+                            <div class="table-responsive">
+                                <div class="comment-widgets" style="height:500px;">
+                                    <table class="table">
+                                    <?php if (isset($_SESSION['message'])): ?>
+                                                
+                                                <tr scope="col" <?php if($_SESSION['message'] == 'User Deleted Successfully.'){ ?> class="table-danger" <?php } else { ?> class="table-success" <?php } ?>>
+                                                    <th colspan='9'>
+                                                            <center>
+                                                            <?php
+                                                                    echo $_SESSION['message'];
+                                                                    
+                                                                    $_SESSION['flag']++;
+
+                                                                    if($_SESSION['flag'] > 1){
+                                                                            unset($_SESSION['message']);
+                                                                            $_SESSION['flag'] = 0;
+                                                                    }
+                                                                          
+                                                            ?>
+                                                            </center>
+                                                    </th>
+                                                </tr>
+                                            
+                                            <?php endif ?>
+                                        <thead>
+                                            <tr style=" position: -webkit-sticky; position: sticky;top: 0; z-index: 1; background: #fff;">
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">End Date</th>
+                                                <th scope="col">Reason</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Remark</th>
+                                                <th scope="col" colspan=2>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php 
+                                            $id=$_SESSION['userid'];
+                                            $record = mysqli_query($db, "SELECT * FROM tblleave where User_id='$id';"); ?>
+                                        <?php    
+                                            if($record->num_rows==0){
+                                                ?>
+                                                <tr>
+                                                    <td colspan=8><center>You have not applied any leaves yet.</center></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            $num=1;
+                                            while ($row = mysqli_fetch_array($record)) 
+                                            { ?>
+                                                <tr>
+                                                <th scope="row"><?php echo $num; $num=$num+1; ?></th>
+                                                    <td><?php echo $row['Leave_From']; ?></td>
+                                                    <td><?php echo $row['Leave_To']; ?></td>
+                                                    <td><?php echo $row['Leave_Reason']; ?></td>
+                                                    <td><?php echo $row['Leave_Status']; ?></td>
+                                                    <td><?php echo $row['Leave_Remarks']; ?></td>
+                                                    <?PHP if($row['Leave_Status'] != "Pending") { ?>
+                                                        <td colspan=2></td>
+                                                    <?php } else { ?>
+                                                    <td><a href="starter-kit.php?edit=<?php echo $row['Leave_id']; ?>">Edit</a></td>
+                                                    <td><a href="starter-kit.php?del=<?php echo $row['Leave_id']; ?>" onclick="return checkDelete()">Delete</a></td>
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -398,8 +468,8 @@ else
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a href="https://www.wrappixel.com">WrapPixel</a>.
+            All Rights Reserved by DORMZZ. Designed and Developed by
+                <a href="http://www.utu.ac.in/bmiit" target="_blank">BMIITIANS</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

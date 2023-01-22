@@ -97,21 +97,31 @@ session_start();
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h1 class="heading-section">Register</h1>
+				<div class="col-md-6 text-center mb-3">
+					<h1 class="heading-section" style="text-transform: uppercase; font-weight: bolder;">Register</h1>
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-4">
+				<div class="col-md-6 col-lg-5">
 					<div class="login-wrap p-0">
 		      			<!-- <h3 class="mb-4 text-center">Have an account?</h3> -->
-						<form action="" method="post" class="signin-form">
-							<div class="form-group">
-								<input type="text" name="EnNo" class="form-control" placeholder="Enrollment Number" required>
+						<form action="" method="post" class="signin-form" >
+							<div class="list-group list-group-horizontal" style="justify-content:space-between;">
+								<div class="form-group">
+									<input type="text" name="EnNo" class="form-control" placeholder="Enrollment Number" required>
+								</div>
+								<div class="form-group" style="margin-left:2%">
+									<input type="text" name="CourseName" class="form-control" placeholder="Course Name" required>
+								</div>
 							</div>
-							<div class="form-group">
-								<input type="text" name="CourseName" class="form-control" placeholder="Course Name" required>
-							</div>
+							<div class="list-group list-group-horizontal" style="justify-content:space-between;">
+								<div class="form-group">
+									<input type="text" name="Fname" class="form-control" placeholder="First Name" required>
+								</div>
+								<div class="form-group" style="margin-left:2%">
+									<input type="text" name="Lname" class="form-control" placeholder="Last Name" required>
+								</div>
+							</div>	
 							<div class="form-group">
 								<!-- <input type="text" name="DepartmentName" class="form-control" placeholder="Department Name" required> -->
 								<select name="DepartmentName"  class="form-control" required>
@@ -122,22 +132,18 @@ session_start();
 								</select>
 							</div>
 							<div class="form-group">
-								<input type="text" name="Fname" class="form-control" placeholder="First Name" required>
-							</div>
-							<div class="form-group">
-								<input type="text" name="Lname" class="form-control" placeholder="Last Name" required>
-							</div>
-							<div class="form-group">
 								<label class="form-control">Gender  :
-								<input type="radio" name="gender" value="Boys" placeholder="Gender">Male
-								<input type="radio" name="gender" value="Girls" placeholder="Gender">Female
+								<input type="radio" name="gender" value="Boys" placeholder="Gender"> Male   
+								<input style="margin-left:4%;" type="radio" name="gender" value="Girls" placeholder="Gender"> Female
 								</label>
 							</div>
-							<div class="form-group">
-								<input type="email" name="Email" class="form-control" placeholder="Email ID" required>
-							</div>
-							<div class="form-group">
-								<input type="text" name="PhonoNo" class="form-control" placeholder="Phono No." required>
+							<div class="list-group list-group-horizontal" style="justify-content:space-between;">
+								<div class="form-group">
+									<input type="email" name="Email" class="form-control" placeholder="Email ID" required>
+								</div>
+								<div class="form-group" style="margin-left:2%">
+									<input type="text" name="PhonoNo" class="form-control" placeholder="Phono No." required>
+								</div>
 							</div>
 							<div class="form-group">
 								<input type="text" name="username" class="form-control" placeholder="Username" required>
@@ -164,11 +170,10 @@ session_start();
 									<a href="#" style="color: #fff">Forgot Password</a>
 								</div>
 							</div> -->
-							<br><br>
 							<p class="w-100 text-center">&mdash; Already Have an Account ? &mdash;</p>
-							<br>
 							<div class="social d-flex text-center">
 								<a href="login.php" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Sign In</a>
+								<a href="../index.php" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>Home</a>
 							</div>
 						</form>
 		      		</div>

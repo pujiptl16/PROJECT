@@ -217,7 +217,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="CRC.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-file"></i>
                                 <span class="hide-menu">Complain / Request</span>
@@ -319,7 +319,7 @@ else
                                             $type=array('image/jpg', 'image/jpeg', 'image/png');
 
                                             if(in_array($_FILES['ProfilePic']['type'], $type)){
-                                                $file="./Image/".$_SESSION['FirstName']."_".$_SESSION['username'];
+                                                $file="./Image/".$_SESSION['FirstName']."_".$_SESSION['username'].".jpg";
                                                 move_uploaded_file($_FILES['ProfilePic']['tmp_name'], $file);
                                                 $query="UPDATE `tblstudent` SET Profile_img='$file' WHERE user_id=".$_SESSION['userid'].";";
                                                 mysqli_query($db, $query);

@@ -1,5 +1,16 @@
 <?php
 session_start();
+$db = mysqli_connect('localhost', 'root', '', 'dormz');
+$update = false;
+$fname="";
+$lname="";
+$EnNo="";
+$email="";
+$department="";
+$phone="";
+$role="";
+$user="";
+$pass="";
 
 if(session_id()=="" || !isset($_SESSION['username'])) 
 {
@@ -8,7 +19,160 @@ if(session_id()=="" || !isset($_SESSION['username']))
 }
 else
 {
-    echo "<script>starter-kit.php'</script>";
+    //echo "<script>starter-kit.php'</script>";
+    if (isset($_POST['RoleAdd'])) {
+        $role = $_POST['RoleName'];
+
+        mysqli_query($db, "INSERT INTO `tblrole`(`Role_Type`) VALUES ('$role')");
+        $_SESSION['message1'] = "Role Stored Successfully.";
+        header('location: starter-kit.php');
+    }
+
+    if (isset($_GET['r-edit'])) {
+		$id = $_GET['r-edit'];
+		$update = true;
+		$record = mysqli_query($db, "SELECT * FROM tblrole WHERE Role_id=$id");
+
+		if ($record->num_rows == 1 ) {
+			$n = mysqli_fetch_array($record);
+			$role = $n['Role_Type'];
+		}
+	}
+
+    if (isset($_POST['RoleUpdate'])) {
+        $id = $_POST['id'];
+        $role = $_POST['RoleName'];
+
+        mysqli_query($db, "UPDATE tblrole SET Role_Type='$role' WHERE Role_id=$id");
+        $_SESSION['message1'] = "Role Updated Successfully."; 
+        header('location: starter-kit.php');
+    }
+
+    if (isset($_GET['r-del'])) {
+        $id = $_GET['r-del'];
+        $query = "DELETE FROM tblrole WHERE Role_id='$id'";
+        mysqli_query($db, $query);
+        $_SESSION['message1'] = "Role Deleted Successfully."; 
+        header('location: starter-kit.php');
+    }
+
+    if(isset($_POST['AssignDesignation'])){
+        $user=$_POST['StaffUser'];
+        $role=$_POST['StaffUserDesignation'];
+        $hostel=$_POST['StaffUserDesignationHostel'];
+        $record = mysqli_query($db, "SELECT * FROM tblstaff WHERE user_id=$user");
+        $db_role="";
+        while($n = mysqli_fetch_array($record))
+            $db_role = $db_role.$n['Role_id'].",";
+
+        $arr_role = explode(",",$db_role);
+
+        if(!in_array($role,$arr_role)){
+            if($record->num_rows == 0){
+                mysqli_query($db, "INSERT INTO `tblstaff`(`user_id`, `Role_id`, `Hostel_id`) VALUES ('$user','$role', '$hostel')");
+                $_SESSION['message2'] = "Designation Assigned Successfully.";
+            }else{
+                mysqli_query($db, "UPDATE `tblstaff` SET `Role_id`='$role', `Hostel_id`='$hostel' WHERE `user_id`='$user';");
+                $_SESSION['message2'] = "Designation Updated Successfully.";
+            }
+
+            header('location: starter-kit.php');
+        }
+        else{
+            $_SESSION['message2'] = "Designation Already Assigned.";
+            header('location: starter-kit.php');   
+        }
+
+    }
+
+    if (isset($_GET['del'])) {
+        $id = $_GET['del'];
+        $query = "DELETE FROM tblregister WHERE user_id='$id'";
+        mysqli_query($db, $query);
+        $_SESSION['message'] = "User Deleted Successfully."; 
+        header('location: starter-kit.php');
+    }
+    
+
+	if (isset($_GET['edit'])) {
+		$id = $_GET['edit'];
+		$update = true;
+		$record = mysqli_query($db, "SELECT * FROM tblregister WHERE user_id=$id");
+
+		if ($record->num_rows == 1 ) {
+			$n = mysqli_fetch_array($record);
+			$fname = $n['FirstName'];
+			$lname = $n['LastName'];
+            $EnNo = $n['EnrollmentNo'];
+            $email = $n['Email'];
+            $department = $n['DepartmentName'];
+            $phone = $n['PhoneNo'];
+		}
+	}
+
+    if (isset($_POST['StudUpdate'])) {
+        $id = $_POST['id'];
+        $fname = $_POST['Fname'];
+        $lname = $_POST['Lname'];
+        $EnNo = $_POST['EnNo'];
+        $email = $_POST['Email'];
+        $department = $_POST['Department'];
+        $phone = $_POST['Phone'];
+
+        mysqli_query($db, "UPDATE tblregister SET FirstName='$fname', LastName='$lname', EnrollmentNo='$EnNo', Email='$email', DepartmentName='$department', PhoneNo='$phone' WHERE user_id=$id");
+        $_SESSION['message'] = "User Updated Successfully."; 
+        header('location: starter-kit.php');
+    }
+    
+    if (isset($_POST['StaffAdd'])) {
+        $user = $_POST['username'];
+        $fname = $_POST['Fname'];
+        $lname = $_POST['Lname'];
+        $EnNo = $_POST['EnNo'];
+        $department = $_POST['Department'];
+        $pass = $_POST['password'];
+		$record = mysqli_query($db, "SELECT * FROM tblregister WHERE Username='$user';");
+
+		if($record->num_rows == 0 )
+		{
+		    $Email = $_POST['Email'];
+			$Email = filter_var($Email, FILTER_SANITIZE_EMAIL);
+			
+			if (filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+                
+                $hash_pass = password_hash($pass, PASSWORD_DEFAULT);                                
+                
+                if(mysqli_query($db, "INSERT INTO `tblregister`(`EnrollmentNo`, `DepartmentName`, `Username`, `Password`, `FirstName`, `LastName`, `Email`) VALUES ('$EnNo','$department','$user','$hash_pass','$fname','$lname','$Email')"))
+                {
+                    $_SESSION['message'] = "Staff Member Added Successfully."; 
+                    header('location: starter-kit.php');
+                }
+                else{
+                    echo "<script>alert('Unknown Error Occured.')</script>";
+                }
+			}
+			else{
+				echo"<script>alert('Invalid Email Address.')</script>";
+			}
+		}else
+		{
+			echo"<script>alert('Username is not Available.')</script>";
+        }
+    }
+
+    if (isset($_POST['StudAdd'])) {
+        $id = $_POST['id'];
+        $fname = $_POST['Fname'];
+        $lname = $_POST['Lname'];
+        $EnNo = $_POST['EnNo'];
+        $email = $_POST['Email'];
+        $department = $_POST['Department'];
+        $phone = $_POST['Phone'];
+
+        mysqli_query($db, "INSERT INTO tblregister (`FirstName`, `LastName`, `EnrollmentNo`, `Email`, `DepartmentName`, `PhoneNo`) VALUES ('$fname','$lname','$EnNo', '$email','$department','$phone');");
+        $_SESSION['message'] = "User Added Successfully."; 
+        header('location: starter-kit.php');
+    }
 }
 
 ?>
@@ -25,7 +189,7 @@ else
     <meta name="description"
         content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Dormzz - Apply Leave</title>
+    <title>Dormzz - Designation Management</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin-lite/" />
     <link rel="shortcut icon" type="image/x-icon" href="../../../../images/favicon.png" />
     <!-- Favicon icon 
@@ -39,6 +203,27 @@ else
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script>
+        function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                }
+                return true;
+        }
+
+        function checkDelete(){
+                return confirm('Are you sure?');
+        }
+
+        function AskPermission() {
+            if (confirm("Are you sure?")) {
+                return true;
+            }
+            return false;
+        }
+</script>
 </head>
 
 <body>
@@ -217,7 +402,7 @@ else
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="starter-kit.php"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="feedback.php"
                                 aria-expanded="false">
                                 <i class="mdi mdi-comment-alert-outline"></i>
                                 <span class="hide-menu">Feedback</span>
@@ -249,7 +434,7 @@ else
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Starter Page</h4>
+                        <h4 class="page-title">Staff Panel</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -258,7 +443,7 @@ else
                                     <li class="breadcrumb-item">
                                         <a href="#">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Starter Page</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Staff Panel</li>
                                 </ol>
                             </nav>
                         </div>
@@ -276,10 +461,343 @@ else
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                This is some text within a card block.
+                                <h4 class="card-title">Designation Management</h4>
+                                <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i> Manage Designation</h6>
+                                
+                                <table class="table">
+                                    <?php if (isset($_SESSION['message2'])): ?>
+                                                
+                                        <tr scope="col" <?php if($_SESSION['message2'] == 'Designation Already Assigned.'){ ?> class="table-danger" <?php } else { ?> class="table-success" <?php } ?>>
+                                            <th colspan='12'>
+                                                    <center>
+                                                    <?php
+                                                            echo $_SESSION['message2'];
+                                                            
+                                                            $_SESSION['flag']++;
+
+                                                            if($_SESSION['flag'] > 1){
+                                                                    unset($_SESSION['message2']);
+                                                                    $_SESSION['flag'] = 0;
+                                                            }
+                                                                    
+                                                    ?>
+                                                    </center>
+                                            </th>
+                                        </tr>
+                                    
+                                    <?php endif ?>
+                                </table>            
+                                <form method="post" action="" class="form-horizontal form-material mx-2" style="width:50%">
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Select Staff User</label>
+                                        <div class="col-sm-12">
+                                            <select name="StaffUser" id="StaffUser" class="form-select shadow-none form-control-line">
+                                            <?php $record = mysqli_query($db, "SELECT * FROM tblregister"); ?>
+                                            <?php    
+                                                while ($row = mysqli_fetch_array($record)) 
+                                                { 
+                                                    if(strlen($row['EnrollmentNo'])==7){
+                                                    ?>
+                                                        <option value="<?php echo $row['user_id']; ?>"><?php echo $row['FirstName']." ".$row['LastName']." | ".$row['EnrollmentNo']; ?></option>
+                                                        
+                                                    <?php } } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Select Designation</label>
+                                        <div class="col-sm-12">
+                                            <select name="StaffUserDesignation" id="StaffUserDesignation" class="form-select shadow-none form-control-line">
+                                                <?php $record = mysqli_query($db, "SELECT * FROM tblrole"); ?>
+                                                <?php    
+                                                    while ($row = mysqli_fetch_array($record)) 
+                                                    { 
+                                                        ?>
+                                                            <option value="<?php echo $row['Role_id']; ?>"><?php echo $row['Role_Type']; ?></option>                    
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Select Hostel</label>
+                                        <div class="col-sm-12">
+                                            <select name="StaffUserDesignationHostel" id="StaffUserDesignationHostel" class="form-select shadow-none form-control-line">
+                                                <?php $record = mysqli_query($db, "SELECT * FROM tblhostel"); ?>
+                                                <?php    
+                                                    while ($row = mysqli_fetch_array($record)) 
+                                                    { 
+                                                        ?>
+                                                            <option value="<?php echo $row['Hostel_id']; ?>"><?php echo $row['Hostel_Name']; ?></option>                    
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="AssignDesignation" class="btn btn-success text-white" onclick="return AskPermission()">Assign</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">Role Management</h5>
+                                <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i><a href="starter-kit.php?r-add">Add Roles</a></h6>
+                                <?php if (isset($_GET['r-add'])) { ?>
+                            
+                                <form action="" method="post" class="form-horizontal mt-4">
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <div class="form-group">
+                                        <label>Role Name</label>
+                                        <input type="text" name="RoleName" class="form-control" value="" placeholder="Role Name">
+                                    </div>
+                                    <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="submit" name="RoleAdd" class="btn btn-success text-white" onclick="return AskPermission()">Add</button>
+                                            </div>
+                                        </div>
+                                </form>
+
+                                <?php unset($_GET['r-add']); } ?>
+                                
+                                <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Available Roles</h6>
+                                
+                                <?php if (isset($_GET['r-edit'])) { ?>
+                                
+                                <form action="" method="post" class="form-horizontal mt-4">
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <div class="form-group">
+                                        <label>Role Name</label>
+                                        <input type="text" name="RoleName" class="form-control" value="<?php echo $role; ?>" placeholder="Role Name">
+                                    </div>
+                                    <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="submit" name="RoleUpdate" class="btn btn-success text-white">Update</button>
+                                            </div>
+                                        </div>
+                                </form>
+
+                                <?php unset($_GET['r-edit']); } ?>
+                                <div class="table-responsive">
+                                <div class="comment-widgets" style="height:150px;">
+                                    <table class="table">
+                                    <?php if (isset($_SESSION['message1'])): ?>
+                                                
+                                                <tr scope="col" <?php if($_SESSION['message1'] == 'Role Deleted Successfully.'){ ?> class="table-danger" <?php } else { ?> class="table-success" <?php } ?>>
+                                                    <th colspan='4'>
+                                                            <center>
+                                                            <?php
+                                                                    echo $_SESSION['message1'];
+                                                                    
+                                                                    $_SESSION['flag']++;
+
+                                                                    if($_SESSION['flag'] > 1){
+                                                                            unset($_SESSION['message1']);
+                                                                            $_SESSION['flag'] = 0;
+                                                                    }
+                                                                          
+                                                            ?>
+                                                            </center>
+                                                    </th>
+                                                </tr>
+                                            
+                                            <?php endif ?>
+                                        <thead>
+                                            <tr style=" position: -webkit-sticky; position: sticky;top: 0; z-index: 1; background: #fff;">
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col" colspan=2>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $record = mysqli_query($db, "SELECT * FROM tblrole"); 
+                                        ?>
+                                        <?php    
+                                            if($record->num_rows == 0){
+                                            ?>    
+                                                <tr>
+                                                    <td colspan=4><?php echo "No Roles Stored.";?></td>
+                                                </tr>
+                                            
+                                            <?php
+                                            }
+                                            else
+                                            {
+                                            $num=1;
+                                            while ($row = mysqli_fetch_array($record)) 
+                                            {
+                                                ?>
+                                                <tr>
+                                                <th scope="row"><?php echo $num; $num=$num+1; ?></th>
+                                                    <td><?php echo $row['Role_Type']; ?></td>
+                                                    <td><a href="starter-kit.php?r-edit=<?php echo $row['Role_id']; ?>">Edit</a></td>
+                                                    <td><a href="starter-kit.php?r-del=<?php echo $row['Role_id']; ?>" onclick="return checkDelete()">Delete</a></td>
+                                                </tr>
+                                                <?php } } ?>
+                                        </tbody>
+                                    </table>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-body">
+                            <h4 class="card-title">Staff Management</h4>
+                            <h5 class="card-subtitle"> Manage Staff</h5>
+                            <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-1-box-multiple-outline"></i><a href="starter-kit.php?addstaff">Add Staff</a></h6>
+                            <?php if (isset($_GET['addstaff'])) { ?>
+                            <form action="" method="post" class="form-horizontal mt-4">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username" class="form-control" value="<?php echo $user; ?>" placeholder="UserName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" name="password" class="form-control" value="<?php echo $pass; ?>" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="Fname" class="form-control" value="<?php echo $fname; ?>" placeholder="First Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="Lname" class="form-control" value="<?php echo $lname; ?>" placeholder="Last Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Staff Enrollment Number</label>
+                                    <input type="text" name="EnNo" class="form-control" value="<?php echo $EnNo; ?>" placeholder="Enrollment No." required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="Email" id="example-email" value="<?php echo $email; ?>" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <input type="text" name="Department" class="form-control" value="<?php echo $department; ?>" placeholder="Department" required>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="StaffAdd" class="btn btn-success text-white">Add</button>
+                                        </div>
+                                    </div>
+                            </form>
+
+                            <?php unset($_GET['addstaff']); } ?>
+                            
+                            <?php if (isset($_GET['edit'])) { ?>
+                            
+                            <form action="" method="post" class="form-horizontal mt-4">
+                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="Fname" class="form-control" value="<?php echo $fname; ?>" placeholder="First Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="Lname" class="form-control" value="<?php echo $lname; ?>" placeholder="Last Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Enrollment Number</label>
+                                    <input type="text" name="EnNo" class="form-control" value="<?php echo $EnNo; ?>" placeholder="Enrollment No.">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="Email" id="example-email" value="<?php echo $email; ?>" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <input type="text" name="Department" class="form-control" value="<?php echo $department; ?>" placeholder="Department">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone No.</label>
+                                    <input type="text" name="Phone" class="form-control" value="<?php echo $phone; ?>" placeholder="Phone No.">
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="StudUpdate" class="btn btn-success text-white">Update</button>
+                                        </div>
+                                    </div>
+                            </form>
+
+                            <?php unset($_GET['edit']); } ?>
+                            <h6 class="card-title mt-5"><i class="me-1 font-18 mdi mdi-numeric-2-box-multiple-outline"></i> Available Staff</h6>
+                            <div class="comment-widgets" style="height:450px;">
+                            <div class="table-responsive">
+                                    <table class="table">
+                                    <?php if (isset($_SESSION['message'])): ?>
+                                                
+                                                <tr scope="col" <?php if($_SESSION['message'] == 'User Deleted Successfully.'){ ?> class="table-danger" <?php } else { ?> class="table-success" <?php } ?>>
+                                                    <th colspan='10'>
+                                                            <center>
+                                                            <?php
+                                                                    echo $_SESSION['message'];
+                                                                    
+                                                                    $_SESSION['flag']++;
+
+                                                                    if($_SESSION['flag'] > 1){
+                                                                            unset($_SESSION['message']);
+                                                                            $_SESSION['flag'] = 0;
+                                                                    }
+                                                                          
+                                                            ?>
+                                                            </center>
+                                                    </th>
+                                                </tr>
+                                            
+                                            <?php endif ?>
+                                        <thead>
+                                            <tr style=" position: -webkit-sticky; position: sticky;top: 0; z-index: 1; background: #fff;">
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Enrollment No.</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Hostel</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col">Phone No.</th>
+                                                <th scope="col" colspan=2>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $record = mysqli_query($db, "SELECT * FROM tblregister"); ?>
+                                        <?php    
+                                            $num=1;
+                                            while ($row = mysqli_fetch_array($record)) 
+                                            { 
+                                                if(strlen($row['EnrollmentNo'])<15){
+                                                    $user = $row['user_id'];
+                                                    $role = mysqli_query($db, "SELECT A.Role_Type FROM tblrole A JOIN tblstaff B ON B.Role_id=A.Role_id WHERE B.user_id='$user';");
+                                                    $row2 = mysqli_fetch_array($role)
+                                                ?>
+                                                <tr>
+                                                <th scope="row"><?php echo $num; $num=$num+1; ?></th>
+                                                    <td><?php if(empty($row2['Role_Type'])) echo "N.A"; else echo $row2['Role_Type']; ?></td>
+                                                    <td><?php echo $row['FirstName']." ".$row['LastName']; ?></td>
+                                                    <td><?php echo $row['EnrollmentNo']; ?></td>
+                                                    <td><?php echo $row['Email']; ?></td>
+                                                    <td><?php echo "1"; ?></td>
+                                                    <td><?php echo $row['DepartmentName']; ?></td>
+                                                    <td><?php echo $row['PhoneNo']; ?></td>
+                                                    <td><a href="starter-kit.php?edit=<?php echo $row['user_id']; ?>">Edit</a></td>
+                                                    <td><a href="starter-kit.php?del=<?php echo $row['user_id']; ?>" onclick="return checkDelete()">Delete</a></td>
+                                                </tr>
+                                                <?php } } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

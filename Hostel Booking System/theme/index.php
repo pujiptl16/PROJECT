@@ -1,5 +1,17 @@
-<!DOCTYPE html>
+<?php
+session_start();
+$db = mysqli_connect('localhost', 'root', '', 'dormz');
+$ip=$_SERVER['REMOTE_ADDR'];
+$query="INSERT INTO `tblvisitors`(`ip`) VALUES ('$ip');";
+mysqli_query($db, $query);
 
+$query = mysqli_query($db, "SELECT * from tblvisitors");
+$_SESSION['visits'] = $query->num_rows;
+
+$date=date("Y-m-d");
+$query = mysqli_query($db, "SELECT * from tblvisitors where date='$date';");
+?>
+<!DOCTYPE html>
 <!--
  // WEBSITE: https://themefisher.com
  // TWITTER: https://twitter.com/themefisher
@@ -835,7 +847,6 @@ Start Our Team
 <section id="pricing" class="pricing section section-bg">
 	<div class="container">
 		<div class="row">
-
 			<div class="col-12">
 				<!-- section title -->
 				<div class="title text-center wow fadeInDown" data-wow-duration="500ms">
@@ -844,128 +855,163 @@ Start Our Team
 				</div>
 				<!-- /section title -->
 			</div>
+			<?php $record = mysqli_query($db, "SELECT * FROM `tblpackage`;");    
+				$duration=500;
+				while ($row = mysqli_fetch_array($record)) 
+				{ ?>
+					<!-- single pricing table -->
+					<div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="<?php echo $duration; $duration=$duration+200; ?>ms">
+						<div class="price-item">
+
+							<!-- plan name & value -->
+							<div class="price-title">
+								<h3><?php echo $row['Package_Name']; ?></h3>
+								<p><strong class="value">₹ <?php echo $row['Package_Price']; ?></strong>/ semester</p>
+							</div>
+							<!-- /plan name & value -->
+
+							<!-- plan description -->
+							<?php $Description=explode(";",$row['Package_Description']); ?>
+							<ul>
+								
+								<li><?php echo $Description[0]; ?></li>
+								<li><?php echo $Description[1]; ?></li>
+								<li><?php echo $Description[2]; ?></li>
+								<li><?php echo $Description[3]; ?></li>
+								<li><?php echo $Description[4]; ?></li>
+								<li><?php echo $Description[5]; ?></li>
+							</ul>
+							<!-- /plan description -->
+
+							<!-- signup button -->
+							<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
+							<!-- /signup button -->
+
+						</div>
+					</div>
+					<?php } ?>
 
 			<!-- single pricing table -->
-			<div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="200ms">
-				<div class="price-item">
+			<!-- <div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="200ms">
+				<div class="price-item"> -->
 
 					<!-- plan name & value -->
-					<div class="price-title">
+					<!-- <div class="price-title">
 						<h3>Priority</h3>
 						<p><strong class="value">₹ 19999</strong>/ semester</p>
-					</div>
+					</div> -->
 					<!-- /plan name & value -->
 
 					<!-- plan description -->
-					<ul>
+					<!-- <ul>
 						<li>5 Bed 1 Room</li>
 						<li>Non AC</li>
 						<li>Appetizer Mess Pass</li>
 						<li>1 Club Access</li>
 						<li>1 Leaves per Week</li>
 						<li>24/7 Support</li>
-					</ul>
+					</ul> -->
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
+					<!-- <a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a> -->
 					<!-- /signup button -->
 
-				</div>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!-- end single pricing table -->
 
 			<!-- single pricing table -->
-			<div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
+			<!-- <div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
 				data-wow-delay="400ms">
-				<div class="price-item">
+				<div class="price-item"> -->
 
 					<!-- plan name & value -->
-					<div class="price-title">
+					<!-- <div class="price-title">
 						<h3>Premier</h3>
 						<p><strong class="value">₹ 24999</strong />/ semester</p>
-					</div>
+					</div> -->
 					<!-- /plan name & value -->
 
 					<!-- plan description -->
-					<ul>
+					<!-- <ul>
 						<li>1 Bed 1 Room</li>
 						<li>Non AC</li>
 						<li>Aroma Mess Pass</li>
 						<li>1 Club Access</li>
 						<li>2 Leaves per Week</li>
 						<li>24/7 Support</li>
-					</ul>
+					</ul> -->
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
+					<!-- <a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a> -->
 					<!-- /signup button -->
 
-				</div>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!-- end single pricing table -->
 
 			<!-- single pricing table -->
-			<div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
+			<!-- <div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
 				data-wow-delay="600ms">
-				<div class="price-item">
+				<div class="price-item"> -->
 
 					<!-- plan name & value -->
-					<div class="price-title">
+					<!-- <div class="price-title">
 						<h3>Privilege</h3>
 						<p><strong class="value">₹ 39999</strong />/ semester</p>
-					</div>
+					</div> -->
 					<!-- /plan name & value -->
 
 					<!-- plan description -->
-					<ul>
+					<!-- <ul>
 						<li>2 Bed 1 Room</li>
 						<li>AC + Refrigerator</li>
 						<li>Cuisione Mess Pass</li>
 						<li>2 Club Access</li>
 						<li>3 Leaves per Week</li>
 						<li>24/7 Support</li>
-					</ul>
+					</ul> -->
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
+					<!-- <a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a> -->
 					<!-- /signup button -->
 
-				</div>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!-- end single pricing table -->
 
 			<!-- single pricing table -->
-			<div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
+			<!-- <div class="col-lg-3 col-md-6 text-center wow fadeInUp" data-wow-duration="500ms"
 				data-wow-delay="750ms">
-				<div class="price-item">
+				<div class="price-item"> -->
 
 					<!-- plan name & value -->
-					<div class="price-title">
+					<!-- <div class="price-title">
 						<h3>Private</h3>
 						<p><strong class="value">₹ 44999</strong />/ semester</p>
-					</div>
+					</div> -->
 					<!-- /plan name & value -->
 
 					<!-- plan description -->
-					<ul>
+					<!-- <ul>
 						<li>1 Bed 1 Room</li>
 						<li>AC + Refrigerator</li>
 						<li>Delight Mess Plan</li>
 						<li>3 Club Access</li>
 						<li>4 Leaves per Week</li>
 						<li>24/7 Support</li>
-					</ul>
+					</ul> -->
 					<!-- /plan description -->
 
 					<!-- signup button -->
-					<a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a>
+					<!-- <a class="btn btn-transparent" href="form/register.php" target="_blank">Sign up</a> -->
 					<!-- /signup button -->
 
-				</div>
-			</div>
+				<!-- </div>
+			</div> -->
 			<!-- end single pricing table -->
 
 

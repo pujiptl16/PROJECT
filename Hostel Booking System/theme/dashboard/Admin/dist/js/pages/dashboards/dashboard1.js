@@ -29,7 +29,7 @@ $(function() {
             scaleMinSpace: 40,
             offset: 20,
             labelInterpolationFnc: function(value) {
-                return (value / 10) + 'k';
+                return (value / 10) + 'p';
             }
         },
 
