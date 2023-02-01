@@ -1,0 +1,44 @@
+array(
+	array(
+			array('staffuse','staffuse','seat','seat','seat','seat','seat','seat')
+			array('staffuse','staffuse','seat','seat','seat','seat','seat','seat')
+			array('seat','seat','whiteseat','whiteseat','whiteseat','whiteseat','seat','seat')
+			array('seat','seat','whiteseat','whiteseat','whiteseat','whiteseat','seat','seat')
+			array('seat','seat','whiteseat','whiteseat','whiteseat','whiteseat','seat','seat')
+			array('seat','seat','whiteseat','whiteseat','whiteseat','whiteseat','seat','seat')
+			array('seat','seat','seat','seat','seat','seat','seat','seat')
+			array('seat','seat','seat','seat','seat','seat','seat','seat')
+	)
+)
+
+===========================================================================================>
+
+{
+	[
+			staffuse,staffuse,seat,seat,seat,seat,seat,seat:
+			staffuse,staffuse,seat,seat,seat,seat,seat,seat:
+			seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:
+			seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:
+			seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:
+			seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:
+			seat,seat,seat,seat,seat,seat,seat,seat:
+			seat,seat,seat,seat,seat,seat,seat,seat
+	]
+}
+
+
+============================================================================================>
+
+staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,seat,seat,seat,seat,staffuse,staffuse]
+seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat]
+
+staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,seat,seat,seat,seat,staffuse,staffuse]
+seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat]
+staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat:staffuse,staffuse,seat,seat,seat,seat,seat,seat]
+seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,seat,seat,seat,seat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,whiteseat,whiteseat,whiteseat,whiteseat,seat,seat:seat,seat,seat,seat,seat,seat,staffuse,staffuse:seat,seat,seat,seat,seat,seat,staffuse,staffuse]
+

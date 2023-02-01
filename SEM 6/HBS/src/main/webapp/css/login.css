@@ -1,0 +1,151 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.full-page
+{
+    height: 100%;
+	width: 100%;
+	background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(../images/backgrounds/bg-2.jpg);
+	background-position: center;
+	background-size: cover;
+	position: absolute;
+}
+a{
+	text-decoration: none;
+    color: white;
+	text-transform:uppercase;
+	font-size:13.5px;
+}
+.form-box
+{
+    left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-family: "Quattrocento Sans", sans-serif;
+	width:25%;
+	height:58%;
+	position:absolute;
+	margin:2% auto;
+	background:rgba(0,0,0,0.3);
+	padding:10px;
+    overflow: hidden;
+}
+.form-box h2{
+	color: #57cbcc;
+	text-transform:uppercase;
+	font-size:38px;
+	font-weight:700px;
+	text-align:center;
+	margin-top: 3%;
+}
+
+.form-box h1{
+	text-transform:uppercase;
+	font-size:27px;
+	font-weight:700px;
+	color:white;
+	text-align:center;
+	margin-top:7%;
+}
+.input-group-login
+{
+	top: 150px;
+	position:absolute;
+	width:80%;
+	color:#777;
+	text-align:center;
+}
+.input-group-login p{
+	font-family: "Quattrocento Sans", sans-serif;
+	font-size: small;
+	color: #999;
+}
+.input-group-login p a:hover{
+	color: #57cbcc;
+	transition: .5s;
+}
+.input-group-login h5 a{
+	font-family: "Quattrocento Sans", sans-serif;
+	font-size: 12px;
+	color: #999;
+}
+.input-group-login h5 a:hover{
+	color: #57cbcc;
+	transition: .5s;
+}
+.input-field
+{
+	width: 100%;
+	padding:10px 0;
+	margin:5px 0;
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	border-bottom: 1px solid #999;
+	outline:none;
+	background: transparent;
+}
+.submit-btn
+{
+	color: white;
+	font-weight: 700;
+	font-size: medium;
+	font-family: "Quattrocento Sans", sans-serif;
+	transition: .3s;
+	width: 55%;
+	padding: 10px 30px;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+	background: #57cbcc;
+	border: 0;
+	outline: none;
+	border-radius: 30px;
+	margin-top: 5%;
+}
+.submit-btn:hover {
+	color: #57cbcc;
+	background: white;
+}
+.home-btn{
+	color: white;
+	background: hsl(125, 53%, 57%);
+	font-weight: 700;
+	font-size: medium;
+	font-family: "Quattrocento Sans", sans-serif;
+	transition: .3s;
+	width: 55%;
+	padding: 10px 30px;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+	border: 0;
+	outline: none;
+	border-radius: 30px;
+}
+.home-btn:hover {
+	color:hsl(125, 53%, 57%);
+	background: white;
+}
+.check-box
+{
+	margin: 30px 10px 34px 0;
+}
+span
+{
+	color:#777;
+	font-size:12px;
+}
+#login
+{
+	left:50px;
+}
+#login input
+{
+	color:white;
+	font-size:15;
+}
+*/

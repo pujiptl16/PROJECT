@@ -1,0 +1,8 @@
+.label-custom{
+  transition: .3s;
+}
+.label-custom:hover{
+  color:#7460ee;
+  background-color:rgb(230, 255, 223);
+  
+}
