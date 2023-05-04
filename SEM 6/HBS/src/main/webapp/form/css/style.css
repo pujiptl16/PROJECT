@@ -62,6 +62,12 @@ body {
 [tabindex="-1"]:focus {
   outline: 0 !important; }
 
+.progress-bar_text {
+  display: inline-block;
+  color: #aaa;
+  transition: .2s;
+}
+
 hr {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;

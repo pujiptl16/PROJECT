@@ -40,11 +40,25 @@ public class TesterMailer extends HttpServlet {
 		//doGet(request, response);
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
-		out.println("Mailer");
-		if(HBSMailer.sendMail("20bscit001@gmail,com", "Test", "Mail Sent Successfully."))
-			out.println("Mail Sent");
-		else
-			out.println("Mail not Sent.");
+		out.println("Mailer<BR>");
+		try {
+			if(HBSMailer.sendMail("20bscit001@gmail.com", "Test Email 288 From Anvi", "Mail from Anvi Email id Sent Successfully."))
+				out.println("Mail Sent<BR>");
+			else
+				out.println("Mail not Sent.<BR>");
+			
+			String Password = "Parth";
+			HBSHashing.HashPaswword("ParthDesai");
+			out.println("<BR>Stored Password : " + HBSHashing.getPassword());
+			out.println("<BR>Stored Salt : " + HBSHashing.getSalt());
+			out.println("<BR>Hashed Password : " + HBSHashing.getHashedPassword());
+			out.println("<BR>Entered Password : " + Password);
+			out.println("<BR>Verify Password : " + HBSHashing.VerifyHash(Password, HBSHashing.getHashedPassword(), HBSHashing.getSalt()));
+			//out.println("<BR>Verify Password : " + HBSHashing.VerifyHash(HBSHashing.getPassword(), HBSHashing.getHashedPassword(), HBSHashing.getSalt()));
+		}catch(Exception e) {
+			out.println(e);
+		}
+		
 	}
 
 }

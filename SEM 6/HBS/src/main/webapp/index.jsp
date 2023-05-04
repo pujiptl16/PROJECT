@@ -1,24 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="java.sql.*"
-		import="com.HBS.DatabaseConnection"
-%>
-<% 
-//DatabaseConnection db = new DatabaseConnection();
-Connection con = null;
-try {
-   	con = DatabaseConnection.InitializeDatabase("dormzz");
-    if(con != null) {
-    	//out.println("<script>alert('Database Connected Successfully.')</script>");
-    } else {
-    	//out.println("<script>alert('Database Not Connected.')</script>");
-    }
-}
-catch (Exception e) {
-	out.println("<script>alert('Error Establishing Database Connection.')</script>");
-	e.printStackTrace();
-}
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@include file="DBConnection.jsp" %>
 
 <!DOCTYPE html>
 <!--
@@ -33,7 +15,7 @@ catch (Exception e) {
 
   <!-- Basic Page Needs
   ================================================== -->
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
 	<title>Dormzz</title>
 
   <!-- Mobile Specific Metas
@@ -188,8 +170,8 @@ End Sticky Navigation
 			</div>
 			<div class="col-lg-6">
 				<div class="content-block">
-					<h2>We’re An Online Hostel Booking Company.</h2>
-					<p>We remember our hostel life when we pass out from school and those life become memorable, at this time we again want to go back to hostel life but it’s not possible everything has been changed, we grow up and those days always become a memory in our mind and heart.</p>
+					<h2>We're An Online Hostel Booking Company.</h2>
+					<p>We remember our hostel life when we pass out from school and those life become memorable, at this time we again want to go back to hostel life but itâs not possible everything has been changed, we grow up and those days always become a memory in our mind and heart.</p>
 					<p>Hostel life is a full of enjoy life, this is the first stage of our life in this stage we learn many thing from hostel, school and our hostel friends, Hostel life is a place Where we meet a Real friends of life.</p>
 					<p>Here we have share a platform to live Best Missing Hostel Life with your friends, which help you to relive Hostel Life.</p>
 					<div class="row">
@@ -346,7 +328,7 @@ Start Call To Action
 		</div> <!-- End row -->
 		<div class="row">
 			<div class="col-md-6">
-				<h2>We’ve skilled in providing overall Developement and
+				<h2>Weâve skilled in providing overall Developement and
 					best Environment that helps feel like you are at Home.</h2>
 				 <p>The First ever Flagship Program of Uka Tarsadia University develeoped by our Students and is best Hostel Chain in South Gujarat.</p>
 				<!-- <img class="img-fluid" src="images/about/company-growth.png" alt=""> -->
@@ -1041,7 +1023,7 @@ Start Our Team
 			<!-- Contact Details -->
 			<div class="contact-info col-lg-6 wow fadeInUp" data-wow-duration="500ms">
 				<h3>Contact Details</h3>
-				<p>Everyone says our school friends will be friends for life, we beg to differ, we definitely say it’s your Hostel friends.
+				<p>Everyone says our school friends will be friends for life, we beg to differ, we definitely say itâs your Hostel friends.
 					<br><br>Contact us for any queries.</p>
 				<div class="contact-details">
 					<div class="con-info clearfix">
